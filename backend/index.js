@@ -2,6 +2,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors')
 const app = express()
+
 dotenv = require('dotenv')
 dotenv.config();
 mongoose.set('strictQuery', true);
