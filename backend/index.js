@@ -6,6 +6,7 @@ const app = express()
 dotenv = require('dotenv')
 dotenv.config();
 mongoose.set('strictQuery', true);
+
 const options = {
     useNewUrlParser: true,
     autoIndex: true,
