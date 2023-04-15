@@ -12,8 +12,11 @@ app.options('*',cors())
 
 const categoriaRoutes = require('./routes/categoriaRoutes')
 const canchaRoutes = require('./routes/canchasRoutes')
+const reservaRoutes = require('./routes/reservaRoutes')
+
 app.use('/api',categoriaRoutes)
 app.use('/api',canchaRoutes)
+app.use('/api',reservaRoutes)
 
 
 const options = {
