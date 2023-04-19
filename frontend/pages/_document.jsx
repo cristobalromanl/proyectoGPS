@@ -9,6 +9,8 @@ export default function Document() {
       <body>
         <ColorModeScript initialColorMode={theme.config.initialColorMode} />
         <Main />
+        <h1>Sportify</h1>
+        <h2><b>Ciudad deportiva</b></h2>
         <NextScript />
       </body>
     </Html>
