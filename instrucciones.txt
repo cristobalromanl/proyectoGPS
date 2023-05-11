@@ -1,2 +1,0 @@
-primero cambiar la variable de entorno DB por la creada para el proyecto
-cambiar template engine para el uso de chackra, pug esta de forma momentanea para probar  

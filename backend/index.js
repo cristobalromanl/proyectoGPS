@@ -1,35 +1,44 @@
-import express from 'express';
-import cors from 'cors';
-import conectarDB from './config/db.js';
-import router from './routes/index.js';
-import dotenv from 'dotenv';
-
+const express = require('express')
+const mongoose = require('mongoose')
+const cors = require('cors')
 const app = express();
-app.use(express.json());
-
+dotenv = require('dotenv')
 dotenv.config();
+mongoose.set('strictQuery', true);
 
-// conexion a la base de datos
-conectarDB();
+app.use(cors())
+app.use(express.json())
+app.options('*',cors())
 
-//conectar a port default o 4000
-const port = process.env.PORT || 4000;
+const categoriaRoutes = require('./routes/categoriaRoutes')
+const canchaRoutes = require('./routes/canchasRoutes')
+const reservaRoutes = require('./routes/reservaRoutes')
 
-//habilitar PUG como template engine (temporal)
-app.set('view engine', 'pug');
+app.use('/api',categoriaRoutes)
+app.use('/api',canchaRoutes)
+app.use('/api',reservaRoutes)
 
-// habilitar public
-app.use(express.static('public'));
 
-// agregar router
-app.use('/', router);
+const options = {
+    useNewUrlParser: true,
+    autoIndex: true,
+    keepAlive: true,
+    connectTimeoutMS: 10000,
+    socketTimeoutMS: 45000,
+    family: 4,
+    useUnifiedTopology: true
+}
 
-// puerto de inicio servidor
+mongoose.connect(process.env.DB, options, (error) => {
+    if (error) {
+        console.log(error);
+    } else {
+        console.log("Connected to database 👍🚀");
+    }
+})
+
+
 app.listen(process.env.PORT,()=>{
     console.log(`Server started on port ${process.env.PORT}`)
 })
 
-
-app.listen(port, () => {
-    console.log(`El servidor esta funcionando en el puerto ${port}`);
-});
