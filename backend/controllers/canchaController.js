@@ -11,7 +11,7 @@ const createCancha = (req,res) =>{
     })
     newCancha.save((error,cancha)=>{
         if(error){
-            return res.status(400).send({message:"no se logró crear la cancha"})
+            return res.status(400).send({message:"No se creo la cancha "})
         }
         return res.status(201).send(cancha)
     })
