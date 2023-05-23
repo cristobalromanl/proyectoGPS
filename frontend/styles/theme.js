@@ -4,6 +4,9 @@ import { mode } from '@chakra-ui/theme-tools'
 export default extendTheme({
   initialColorMode: 'system',
   useSystemColorMode: true,
+  fonts: {
+    body: `'FIFA Welcome', sans-serif`,
+  },
   styles: {
     global: (props) => ({
       '::-webkit-scrollbar': {
