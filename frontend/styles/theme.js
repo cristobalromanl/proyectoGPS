@@ -4,7 +4,10 @@ import { mode } from '@chakra-ui/theme-tools'
 export default extendTheme({
   initialColorMode: 'system',
   useSystemColorMode: true,
-  colors:{
+  fonts: {
+    body: `'FIFA Welcome', sans-serif`,
+  },
+  colors: {
     myColor: {
       Eminence: "#5d3c81",
       Aqua: "#05f3ff",
