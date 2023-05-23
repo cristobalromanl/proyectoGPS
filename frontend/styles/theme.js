@@ -7,6 +7,14 @@ export default extendTheme({
   fonts: {
     body: `'FIFA Welcome', sans-serif`,
   },
+  colors: {
+    myColor: {
+      Eminence: "#5d3c81",
+      Aqua: "#05f3ff",
+      Snow: "#f6f2f2",
+      LemonLime: "#eaff00"
+    }
+  },
   styles: {
     global: (props) => ({
       '::-webkit-scrollbar': {

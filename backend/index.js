@@ -1,10 +1,24 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors')
-const app = express()
+const app = express();
 dotenv = require('dotenv')
 dotenv.config();
 mongoose.set('strictQuery', true);
+
+app.use(cors())
+app.use(express.json())
+app.options('*',cors())
+
+const categoriaRoutes = require('./routes/categoriaRoutes')
+const canchaRoutes = require('./routes/canchasRoutes')
+const reservaRoutes = require('./routes/reservaRoutes')
+
+app.use('/api',categoriaRoutes)
+app.use('/api',canchaRoutes)
+app.use('/api',reservaRoutes)
+
+
 const options = {
     useNewUrlParser: true,
     autoIndex: true,
@@ -22,6 +36,7 @@ mongoose.connect(process.env.DB, options, (error) => {
         console.log("Connected to database 👍🚀");
     }
 })
+
 
 app.listen(process.env.PORT,()=>{
     console.log(`Server started on port ${process.env.PORT}`)
