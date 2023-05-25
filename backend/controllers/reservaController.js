@@ -6,7 +6,6 @@ const createReserva = (req,res)=>{
     const newReserva = new Reserva({
         fecha,
         hora,
-        estado:estado,
         cancha
     })
     newReserva.save((error,reserva)=>{

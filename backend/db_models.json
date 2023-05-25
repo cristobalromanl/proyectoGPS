@@ -8,21 +8,27 @@
             "type":"String",
             "required":"true"
         },
+        "password":{
+            "type":"String",
+            "required":"true"
+        },
         "rol":{
             "type":"String",
             "enum":["user","admin"]
         }
     },
+
     "categoria":{
         "name":{
             "type":"String",
-            "enum":["padel","futbol","tenis"]
+            "enum":["padel","futbol"]
         },
         "descripcion":{
             "type":"String",
             "required":"true"
         }
     },
+
     "cancha":{
         "precio":{
             "type":"Number",
@@ -37,6 +43,37 @@
             "ref":"categoria"
         }
     },
+
+    "club":{
+        "nombre":{
+            "type":"String",
+            "required":"true"
+        },
+        "direccion":{
+            "type":"String",
+            "required":"true"    
+        },
+        "canchas":{
+            "type":"Schema.ObjectId",
+            "ref":"cancha"
+        }
+    },
+
+    "insumo":{
+        "nombre":{
+            "type":"String",
+            "required":"true"
+        },
+        "valor":{
+            "type":"Number",
+            "required":"true"
+        },
+        "categoria":{
+            "type":"Schema.ObjectId",
+            "ref":"categoria"
+        }
+    },
+
     "reserva":{
         "fecha":{
             "type":"Date",
@@ -46,14 +83,14 @@
             "type":"Date",
             "required":"true"
         },
-        "estado":{
-            "type":"String",
-            "enum":["disponible","ocupado"]
-        },
         "cancha":{
             "type":["Schema.ObjectId"],
             "ref":"cancha"
-        }
-
+        },
+        "usuario":{
+            "type":"Schema.ObjectId",
+            "ref":"usuario"
+        }   
     }
+
 }

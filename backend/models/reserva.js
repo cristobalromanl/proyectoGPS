@@ -10,10 +10,6 @@ const reservaSchema = new Schema({
         type:String,
         required:true
     },
-    estado:{
-        type:String,
-        enum:["disponible", "ocupada"]
-    },
     cancha:{
         type:Schema.ObjectId,
         ref:"cancha"
