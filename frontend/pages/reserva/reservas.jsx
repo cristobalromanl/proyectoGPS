@@ -1,7 +1,7 @@
 import React from 'react'
 import {SlOptionsVertical} from 'react-icons/sl'
 import {BsHouseDoor} from 'react-icons/bs'
-import { Card, CardHeader, CardBody, CardFooter } from '@chakra-ui/react'
+import { Card, CardHeader, CardBody, CardFooter, position } from '@chakra-ui/react'
 import {
     Box,
     Button,
@@ -31,14 +31,15 @@ const reservas= ()=> {
         <Box><Icon w={'45px'} h={'45px'} as={SlOptionsVertical} color={'white'}/></Box>
         </Button>
       </HStack>
-      <VStack bg={"#c08ee1"} width={'full'} height={' container.lg'}>
-        <Heading my={'30px'} p={'15px'}>Selecciona el deporte </Heading>
+
+      <VStack m={'0'} p={'0'} bgImg={'/fondo.png'} bgRepeat={'no-repeat'} bgPosition={'center'} bgSize={'cover'} width={'100%'} height={'container.md'}>
+        <Heading my={'30px'} p={'15px'} color={'whiteAlpha.800'}>Selecciona el deporte </Heading>
         <VStack spacing={'30px'} my={'25px'}>
         <HStack spacing={'30px'}> 
-        <Card bg={'#c08ee1'} w={'250px'} h={'252px'}transition={['0.3s', 'ease']}  boxShadow={'dark-lg'} cursor={'pointer'} onClick={()=>{console.log("Futbolito")}}>
+        <Card bgColor={['#ffffff']} opacity={'0.5'} w={'250px'} h={'252px'}transition={['0.3s', 'ease']}  boxShadow={'dark-lg'} cursor={'pointer'} onClick={()=>{console.log("Futbolito")}}>
             <CardBody>
               <Flex direction={'column'} alignContent={'center'} justify={'center'}>
-                <Heading textAlign="center">Futbolito</Heading>
+                <Heading textAlign="center" fontWeight={'bold'} color={'#000000'}>Futbolito</Heading>
                 <Image mx={'29px'} h={'130px'} w={'140px'} src='https://cdn.discordapp.com/attachments/723251921393025028/1108953429147131955/asfasdf.png'/>
               </Flex> 
             </CardBody>
