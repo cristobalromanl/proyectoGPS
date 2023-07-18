@@ -1,4 +1,5 @@
 import express from 'express'
+import dotenv from 'dotenv'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import authRoutes from './routes/auth.js'
@@ -10,6 +11,8 @@ import fieldRoutes from './routes/fields.js'
 import reservationRoutes from './routes/reservations.js'
 
 const app = express()
+
+dotenv.config()
 
 const port = process.env.PORT || 5000
 app.set('port', port)
