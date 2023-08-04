@@ -47,23 +47,58 @@ function LoginForm() {
             sx={{ "@media screen and (max-width: 775px)": { width: "100%" } }}
             p={4}
           >
-            <Heading textAlign="center" mb={4}>
+            <Heading textAlign="center" mb={4} color="#000000">
               Iniciar sesión
             </Heading>
             <hr />
 
-            <FormControl mt={4}>
+            <FormControl mt={4} color="#000000">
               <FormLabel>Correo Electrónico</FormLabel>
-              <Input type="email" placeholder="usuario@ejemplo.com" mb={4} />
+              <Input
+                type="email"
+                placeholder="usuario@ejemplo.com"
+                mb={4}
+                borderColor="gray.400"
+                borderWidth="1px"
+                borderRadius="lg"
+                _hover={{
+                  borderColor: "gray.600",
+                }}
+              />
               <FormLabel>Contraseña</FormLabel>
-              <Input type="password" placeholder="Contraseña" mb={4} />
+              <Input
+                type="password"
+                placeholder="Contraseña"
+                mb={4}
+                borderColor="gray.400"
+                borderWidth="1px"
+                borderRadius="lg"
+                _hover={{
+                  borderColor: "gray.600",
+                }}
+              />
             </FormControl>
-            <Button mb={5} bg="#5d3c81" color="white" width="100%">
+            <Button
+              mb={5}
+              bg="#5d3c81"
+              color="white"
+              width="100%"
+              _hover={{
+                fontSize: "lg",
+                bg: "#05F3FF",
+              }}
+            >
               Iniciar sesión
             </Button>
             <Box textAlign="center" mt={5}>
               <Link color="#5d3c81">¿Olvidaste tu contraseña?</Link>
-              <Text>
+              <Text
+                color="#000000"
+                fontWeight="semibold"
+                _hover={{
+                  fontSize: "md",
+                }}
+              >
                 ¿Aun no tienes cuenta? <Link color="#5d3c81">Registrate!</Link>
               </Text>
             </Box>

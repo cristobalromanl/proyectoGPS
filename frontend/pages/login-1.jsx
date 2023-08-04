@@ -15,7 +15,13 @@ import {
 export default function Login_1() {
   return (
     <Flex overflowX="hidden" w="100%" justify="center">
-      <Flex w="100%" maxW="1044px" mx="auto" justifyContent="center" minW="800px">
+      <Flex
+        w="100%"
+        maxW="1044px"
+        mx="auto"
+        justifyContent="center"
+        minW="800px"
+      >
         <Flex alignItems="center" justifyContent="start">
           <Flex direction="column" w="100%" background="transparent" p="48px">
             <Flex justify="center" mb="40px">
