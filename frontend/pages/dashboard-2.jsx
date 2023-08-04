@@ -157,8 +157,12 @@ export default function Dashboard_1() {
                         spacing="0px"
                         ml="2"
                       >
-                        <Text fontSize="sm" color="white">Nombre Apellido</Text>
-                        <Text fontSize="xs" color="purple.200">Administrador</Text>
+                        <Text fontSize="sm" color="white">
+                          Nombre Apellido
+                        </Text>
+                        <Text fontSize="xs" color="purple.200">
+                          Administrador
+                        </Text>
                       </VStack>
                     </HStack>
                   </MenuButton>
