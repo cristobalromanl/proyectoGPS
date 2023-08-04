@@ -17,7 +17,14 @@ import {
   Divider,
   Stack,
 } from "@chakra-ui/react";
-import { PhoneIcon, ChatIcon } from "@chakra-ui/icons";
+import {
+  FaPhoneAlt,
+  FaInstagram,
+  FaYoutube,
+  FaFacebook,
+  FaFacebookF,
+} from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
 
 const Navbar = () => {
   const navBg = useColorModeValue("myColor.Eminence", "myColor.Eminence");
@@ -37,7 +44,10 @@ const Navbar = () => {
             objectFit="cover"
           ></Image>
           <Spacer />
-          <Box display={{ base: "none", md: "flex" }}></Box>
+          <Box display={{ base: "none", md: "flex" }}>
+            {" "}
+            <NavItems linkColor={linkColor} />
+          </Box>
           <Box ml={4}>
             <Button
               bg={singIColor}
@@ -93,6 +103,7 @@ const Navbar = () => {
           <Image src="/main-1.png" borderRadius={"md"} />
         </Box>
       </Flex>
+      {/* Footer */}
       <Flex
         height="240px"
         bg="myColor.Eminence"
@@ -102,19 +113,122 @@ const Navbar = () => {
       >
         <Stack
           direction="column" // Stacks the elements vertically
-          width="30%"
+          width="33%"
           alignItems="center"
           justifyContent="center"
           fontSize="lg"
           spacing={2} // Adds spacing between the stacked elements
         >
           {" "}
-          <Text fontSize="2xl">Datos de contacto</Text>
+          <Text>Enlaces</Text>
           <Divider orientation="horizontal" width="200px" borderWidth={2} />
-          <Text></Text>
+          <Text
+            _hover={{
+              cursor: "pointer",
+              fontSize: "xl",
+            }}
+          >
+            Servicios
+          </Text>
+          <Text
+            _hover={{
+              cursor: "pointer",
+              fontSize: "xl",
+            }}
+          >
+            Contacto
+          </Text>
+          <Text
+            _hover={{
+              cursor: "pointer",
+              fontSize: "xl",
+            }}
+          >
+            FAQ
+          </Text>
+        </Stack>
+        <Stack
+          direction="column"
+          width="33%"
+          alignItems="center"
+          justifyContent="center"
+          fontSize="lg"
+          spacing={2}
+        >
+          <Text>Datos de contacto</Text>
+          <Divider orientation="horizontal" width="200px" borderWidth={2} />
+          <Stack direction="row" align="center">
+            <FaPhoneAlt />
+            <Text>+569 8765 4321</Text>
+          </Stack>
+          <Stack direction="row" align="center">
+            <MdEmail />
+            <Text>contacto@sportify.cl</Text>
+          </Stack>
+        </Stack>
+        <Stack
+          direction="column"
+          width="33%"
+          alignItems="center"
+          justifyContent="center"
+          fontSize="lg"
+          spacing={2}
+        >
+          <Text>Redes sociales</Text>
+          <Divider orientation="horizontal" width="200px" borderWidth={2} />
+          <Stack direction="row" align="center">
+            <FaInstagram /> <FaYoutube /> <FaFacebookF />
+          </Stack>
         </Stack>
       </Flex>
     </Box>
   );
 };
+
+const NavItems = ({ linkColor }) => {
+  return (
+    <Flex alignItems="center">
+      <Link
+        href="#"
+        mr={4}
+        fontWeight="normal"
+        fontSize="2xl"
+        color={linkColor}
+        _hover={{ textDecoration: "none", color: "myColor.Aqua" }}
+      >
+        Servicios
+      </Link>
+      <Link
+        href="#"
+        mr={4}
+        fontWeight="normal"
+        fontSize="2xl"
+        color={linkColor}
+        _hover={{ textDecoration: "none", color: "myColor.Aqua" }}
+      >
+        Conócenos
+      </Link>
+      <Link
+        href="#"
+        mr={4}
+        fontWeight="normal"
+        fontSize="2xl"
+        color={linkColor}
+        _hover={{ textDecoration: "none", color: "myColor.Aqua" }}
+      >
+        Contacto
+      </Link>
+      <Link
+        href="#"
+        fontWeight="normal"
+        fontSize="2xl"
+        color={linkColor}
+        _hover={{ textDecoration: "none", color: "myColor.Aqua" }}
+      >
+        FAQ
+      </Link>
+    </Flex>
+  );
+};
+
 export default Navbar;

@@ -6,6 +6,7 @@ import {
   Text,
   Image,
   Button,
+  useColorModeValue,
   Link,
   Wrap,
   WrapItem,
@@ -15,19 +16,13 @@ import {
 } from "@chakra-ui/react";
 
 const navbarUsr = () => {
+  const navBg = useColorModeValue("myColor.Eminence", "myColor.Eminence");
+  const linkColor = useColorModeValue("myColor.Snow", "myColor.Snow");
+  const singIColor = useColorModeValue("myColor.Aqua", "myColor.Aqua");
   return (
     <Box>
-      <Box
-        position="relative"
-        bg="myColor.Eminence"
-        px={20}
-        py={2}
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        width="100%"
-      >
-        <Flex alignItems="center" width="100%">
+      <Box px={36} py={2} bg={navBg}>
+        <Flex alignItems="center">
           <Image
             src="/Sportify.png"
             alt="logo"
@@ -38,13 +33,18 @@ const navbarUsr = () => {
           ></Image>
           <Spacer />
           <Box display={{ base: "none", md: "flex" }}>
-            <NavItems linkColor="myColor.Snow" />
+            {" "}
+            <NavItems linkColor={linkColor} />
           </Box>
           <Box ml={4}>
             <Button
-              bg="myColor.Aqua"
-              color="myColor.Snow"
+              bg={singIColor}
+              colorScheme="myColor.Aqua"
               borderRadius={"12px"}
+              _hover={{
+                cursor: "pointer",
+                fontSize: "xl",
+              }}
             >
               Cerrar Sesión
             </Button>

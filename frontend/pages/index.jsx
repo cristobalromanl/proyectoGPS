@@ -1,7 +1,8 @@
-import Head from 'next/head'
-import { Box } from '@chakra-ui/react'
-import { Stack } from '@chakra-ui/react'
+import Head from "next/head";
+import { Box } from "@chakra-ui/react";
+import { Stack } from "@chakra-ui/react";
 
+import React from "react";
 
 export default function Home() {
   return (
@@ -12,9 +13,9 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Box bg='black' w='100vw' h='100vh' p={4} color='white'>
+      <Box bg="black" w="100vw" h="100vh" p={4} color="white">
         Sportify
       </Box>
     </>
-  )
+  );
 }

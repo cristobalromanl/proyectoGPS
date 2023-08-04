@@ -17,7 +17,14 @@ import {
   Divider,
   Stack,
 } from "@chakra-ui/react";
-import { PhoneIcon, ChatIcon } from "@chakra-ui/icons";
+import {
+  FaPhoneAlt,
+  FaInstagram,
+  FaYoutube,
+  FaFacebook,
+  FaFacebookF,
+} from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
 
 const Navbar = () => {
   const navBg = useColorModeValue("myColor.Eminence", "myColor.Eminence");
@@ -26,7 +33,8 @@ const Navbar = () => {
 
   return (
     <Box>
-      <Box px={20} py={2} bg={navBg}>
+      {/* Header */}
+      <Box px={36} py={2} bg={navBg}>
         <Flex alignItems="center">
           <Image
             src="/Sportify.png"
@@ -38,6 +46,7 @@ const Navbar = () => {
           ></Image>
           <Spacer />
           <Box display={{ base: "none", md: "flex" }}>
+            {" "}
             <NavItems linkColor={linkColor} />
           </Box>
           <Box ml={4}>
@@ -45,23 +54,28 @@ const Navbar = () => {
               bg={singIColor}
               colorScheme="myColor.Aqua"
               borderRadius={"12px"}
+              _hover={{
+                cursor: "pointer",
+                fontSize: "xl",
+              }}
             >
-              iniciar Sesión
+              Iniciar Sesión
             </Button>
           </Box>
         </Flex>
       </Box>
+      {/* Banner */}
       <Flex
         height={"90vh"}
         width={"100wh"}
         display="flex"
         p={40}
-        backgroundImage={"url(./background-v12.png)"}
+        backgroundImage={"url(./background-v2.png)"}
         backgroundPosition="center"
         backgroundRepeat="no-repeat"
         backgroundSize="cover"
       >
-        <Box width={"50%"} alignItems="center" color="#000000">
+        <Box width={"50%"} alignItems="center">
           <Heading fontSize="6xl" pt={20}>
             Sé parte de la nueva <br />
             experiencia competitiva
@@ -95,6 +109,7 @@ const Navbar = () => {
           <Image src="/main-1.png" borderRadius={"md"} />
         </Box>
       </Flex>
+      {/* Footer */}
       <Flex
         height="240px"
         bg="myColor.Eminence"
@@ -104,18 +119,19 @@ const Navbar = () => {
       >
         <Stack
           direction="column" // Stacks the elements vertically
-          width="30%"
+          width="33%"
           alignItems="center"
           justifyContent="center"
           fontSize="lg"
           spacing={2} // Adds spacing between the stacked elements
         >
-          <Text fontSize="2xl">Enlaces</Text>
+          {" "}
+          <Text>Enlaces</Text>
           <Divider orientation="horizontal" width="200px" borderWidth={2} />
           <Text
             _hover={{
               cursor: "pointer",
-              fontSize: "3xl",
+              fontSize: "xl",
             }}
           >
             Servicios
@@ -123,7 +139,7 @@ const Navbar = () => {
           <Text
             _hover={{
               cursor: "pointer",
-              fontSize: "3xl",
+              fontSize: "xl",
             }}
           >
             Contacto
@@ -131,44 +147,51 @@ const Navbar = () => {
           <Text
             _hover={{
               cursor: "pointer",
-              fontSize: "3xl",
+              fontSize: "xl",
             }}
           >
             FAQ
           </Text>
         </Stack>
         <Stack
-          direction="column" // Stacks the elements vertically
-          width="30%"
+          direction="column"
+          width="33%"
           alignItems="center"
           justifyContent="center"
           fontSize="lg"
-          spacing={2} // Adds spacing between the stacked elements
+          spacing={2}
         >
-          <Text fontSize="2xl">Datos de contacto</Text>
+          <Text>Datos de contacto</Text>
           <Divider orientation="horizontal" width="200px" borderWidth={2} />
-          <Text></Text>
-          <Text></Text>
+          <Stack direction="row" align="center">
+            <FaPhoneAlt />
+            <Text>+569 8765 4321</Text>
+          </Stack>
+          <Stack direction="row" align="center">
+            <MdEmail />
+            <Text>contacto@sportify.cl</Text>
+          </Stack>
         </Stack>
         <Stack
-          direction="column" // Stacks the elements vertically
-          width="30%"
-          fontSize="lg"
+          direction="column"
+          width="33%"
           alignItems="center"
           justifyContent="center"
-          spacing={2} // Adds spacing between the stacked elements
+          fontSize="lg"
+          spacing={2}
         >
-          <Text fontSize="2xl">Redes sociales</Text>
+          <Text>Redes sociales</Text>
           <Divider orientation="horizontal" width="200px" borderWidth={2} />
-          <Text>Servicios</Text>
-          <Text>Contacto</Text>
-          <Text>FAQ</Text>
+          <Stack direction="row" align="center">
+            <FaInstagram /> <FaYoutube /> <FaFacebookF />
+          </Stack>
         </Stack>
       </Flex>
     </Box>
   );
 };
 
+// Navbar
 const NavItems = ({ linkColor }) => {
   return (
     <Flex alignItems="center">
@@ -178,7 +201,11 @@ const NavItems = ({ linkColor }) => {
         fontWeight="normal"
         fontSize="2xl"
         color={linkColor}
-        _hover={{ textDecoration: "none", color: "myColor.Aqua" }}
+        _hover={{
+          textDecoration: "none",
+          color: "myColor.Aqua",
+          fontSize: "3xl",
+        }}
       >
         Servicios
       </Link>
@@ -188,7 +215,11 @@ const NavItems = ({ linkColor }) => {
         fontWeight="normal"
         fontSize="2xl"
         color={linkColor}
-        _hover={{ textDecoration: "none", color: "myColor.Aqua" }}
+        _hover={{
+          textDecoration: "none",
+          color: "myColor.Aqua",
+          fontSize: "3xl",
+        }}
       >
         Conócenos
       </Link>
@@ -198,7 +229,11 @@ const NavItems = ({ linkColor }) => {
         fontWeight="normal"
         fontSize="2xl"
         color={linkColor}
-        _hover={{ textDecoration: "none", color: "myColor.Aqua" }}
+        _hover={{
+          textDecoration: "none",
+          color: "myColor.Aqua",
+          fontSize: "3xl",
+        }}
       >
         Contacto
       </Link>
@@ -207,7 +242,11 @@ const NavItems = ({ linkColor }) => {
         fontWeight="normal"
         fontSize="2xl"
         color={linkColor}
-        _hover={{ textDecoration: "none", color: "myColor.Aqua" }}
+        _hover={{
+          textDecoration: "none",
+          color: "myColor.Aqua",
+          fontSize: "3xl",
+        }}
       >
         FAQ
       </Link>
