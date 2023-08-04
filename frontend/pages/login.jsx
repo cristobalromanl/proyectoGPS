@@ -11,10 +11,12 @@ import {
   FormControl,
   FormLabel,
   Form,
+  Stack,
   FormErrorMessage,
   Text,
 } from "@chakra-ui/react";
 import React from "react";
+import { Switch } from "@chakra-ui/react";
 
 function LoginForm() {
   const bgEminence = useColorModeValue("myColor.Eminence", "myColor.Eminence");
@@ -77,7 +79,16 @@ function LoginForm() {
                   borderColor: "gray.600",
                 }}
               />
+              <Stack display="flex" pl={1} pb={2}>
+                <Flex direction="row" align="center">
+                  <Switch id="recuerdame-id" />
+                  <FormLabel htmlFor="recuerdame-id" mt="1" ml="2">
+                    Recordarme
+                  </FormLabel>
+                </Flex>
+              </Stack>
             </FormControl>
+
             <Button
               mb={5}
               bg="#5d3c81"
