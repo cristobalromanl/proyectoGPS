@@ -74,11 +74,7 @@ const reservas= ()=> {
     //En el boton debo crear una funcion para la que el espacio de la cancha este ocupado (y dejarlo en la bdd, creo jeje)
     return (
         <>
-<<<<<<< HEAD
-             <Button  onClick="Ocupado"size={'xs'} width={'100px'} bg={'green.500'} color={'green'} className="btn btn-outline btn-xs" >
-=======
              <Button  onClick="Libre"size={'xs'} width={'100px'} bg={'green.500'} color={'green'} className="btn btn-outline btn-xs" >
->>>>>>> main
                 <Icon as={BsCheck}   color={'white'} />
             </Button> 
 
@@ -87,11 +83,7 @@ const reservas= ()=> {
     //En el boton debo crear una funcion para la que el espacio de la cancha este ocupado (y dejarlo en la bdd, creo jeje)
     return (
         <>
-<<<<<<< HEAD
-             <Button  onClick="Libre"size={'xs'} width={'100px'} bg={'red.500'} color={'red'} className="btn btn-outline btn-xs" >
-=======
              <Button  onClick="Ocupado"size={'xs'} width={'100px'} bg={'red.500'} color={'red'} className="btn btn-outline btn-xs" >
->>>>>>> main
                 <Icon as={BsX} color={'black'}   />
             </Button> 
 
