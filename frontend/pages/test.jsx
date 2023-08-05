@@ -1,234 +1,90 @@
-import React from "react";
 import {
-  Box,
+  chakra,
+  Container,
+  Stack,
+  HStack,
+  VStack,
   Flex,
-  Spacer,
   Text,
   Image,
-  Button,
-  useColorModeValue,
-  Link,
-  Container,
-  Slider,
-  SliderTrack,
-  SliderFilledTrack,
-  SliderThumb,
-  Heading,
-  Divider,
-  Stack,
+  Box,
 } from "@chakra-ui/react";
-import {
-  FaPhoneAlt,
-  FaInstagram,
-  FaYoutube,
-  FaFacebook,
-  FaFacebookF,
-} from "react-icons/fa";
-import { MdEmail } from "react-icons/md";
 
-const Navbar = () => {
-  const navBg = useColorModeValue("myColor.Eminence", "myColor.Eminence");
-  const linkColor = useColorModeValue("myColor.Snow", "myColor.Snow");
-  const singIColor = useColorModeValue("myColor.Aqua", "myColor.Aqua");
+const overviewList = [
+  {
+    id: 1,
+    label: "Login once per day",
+    subLabel: "The process should be quick.",
+  },
+  {
+    id: 2,
+    label: "Do your reviews",
+    subLabel: "Reviews come from previous flashcards that you chose.",
+  },
+  {
+    id: 3,
+    label: "Streak increase",
+    subLabel:
+      "Your streak increases once per day as long as you finish your reviews.",
+  },
+  {
+    id: 4,
+    label: "Choose your lesson",
+    subLabel: "This will add 5 new flashcards to your reviews.",
+  },
+];
 
+const OverviewSection = () => {
   return (
-    <Box>
-      <Box px={20} py={2} bg={navBg}>
-        <Flex alignItems="center">
-          <Image
-            src="/Sportify.png"
-            alt="logo"
-            width="100px"
-            height="100px"
-            borderRadius="full"
-            objectFit="cover"
-          ></Image>
-          <Spacer />
-          <Box display={{ base: "none", md: "flex" }}>
-            {" "}
-            <NavItems linkColor={linkColor} />
-          </Box>
-          <Box ml={4}>
-            <Button
-              bg={singIColor}
-              colorScheme="myColor.Aqua"
-              borderRadius={"12px"}
-            >
-              iniciar Sesión
-            </Button>
-          </Box>
-        </Flex>
-      </Box>
-      <Flex
-        height={"90vh"}
-        width={"100wh"}
-        display="flex"
-        p={40}
-        backgroundImage={"url(./background-v12.png)"}
-        backgroundPosition="center"
-        backgroundRepeat="no-repeat"
-        backgroundSize="cover"
+    <Container maxW="6xl" py={10}>
+      <chakra.h2 fontSize="4xl" fontWeight="bold" textAlign="center" mb={2}>
+        How it works?
+      </chakra.h2>
+      <Stack
+        direction={{ base: "column", md: "row" }}
+        spacing={{ base: 0, md: 3 }}
+        justifyContent="center"
+        alignItems="center"
       >
-        <Box width={"50%"} alignItems="center">
-          <Heading fontSize="6xl" pt={20}>
-            Sé parte de la nueva <br />
-            experiencia competitiva
-          </Heading>
-          <Heading fontSize="4xl" mt={8} mb={8}>
-            Juega y disfruta con amigos
-          </Heading>
-          <Text fontSize="2xl" mb={8}>
-            ¡Regístrate ahora y reserva tu cancha favorita en solo unos clics!
-          </Text>
-          <Link href="###">
-            <Button
-              bg="myColor.Eminence"
-              color="myColor.Snow"
-              fontSize="2xl"
-              fontWeight="sm"
-              p={"26px"}
-              borderRadius={"12px"}
-              _hover={{ bg: "myColor.Aqua" }}
-            >
-              Registrate
-            </Button>
-          </Link>
-        </Box>
-        <Box
-          boxSize="xl"
-          width={"50%"}
-          alignItems="center"
-          justifyContent="center"
+        <VStack
+          spacing={4}
+          alignItems="flex-start"
+          mb={{ base: 5, md: 0 }}
+          maxW="md"
         >
-          <Image src="/main-1.png" borderRadius={"md"} />
-        </Box>
-      </Flex>
-      {/* Footer */}
-      <Flex
-        height="240px"
-        bg="myColor.Eminence"
-        fontSize="2xl"
-        color="#ffffff"
-        fontFamily="Inter"
-      >
-        <Stack
-          direction="column" // Stacks the elements vertically
-          width="33%"
-          alignItems="center"
-          justifyContent="center"
-          fontSize="lg"
-          spacing={2} // Adds spacing between the stacked elements
-        >
-          {" "}
-          <Text>Enlaces</Text>
-          <Divider orientation="horizontal" width="200px" borderWidth={2} />
-          <Text
-            _hover={{
-              cursor: "pointer",
-              fontSize: "xl",
-            }}
-          >
-            Servicios
-          </Text>
-          <Text
-            _hover={{
-              cursor: "pointer",
-              fontSize: "xl",
-            }}
-          >
-            Contacto
-          </Text>
-          <Text
-            _hover={{
-              cursor: "pointer",
-              fontSize: "xl",
-            }}
-          >
-            FAQ
-          </Text>
-        </Stack>
-        <Stack
-          direction="column"
-          width="33%"
-          alignItems="center"
-          justifyContent="center"
-          fontSize="lg"
-          spacing={2}
-        >
-          <Text>Datos de contacto</Text>
-          <Divider orientation="horizontal" width="200px" borderWidth={2} />
-          <Stack direction="row" align="center">
-            <FaPhoneAlt />
-            <Text>+569 8765 4321</Text>
-          </Stack>
-          <Stack direction="row" align="center">
-            <MdEmail />
-            <Text>contacto@sportify.cl</Text>
-          </Stack>
-        </Stack>
-        <Stack
-          direction="column"
-          width="33%"
-          alignItems="center"
-          justifyContent="center"
-          fontSize="lg"
-          spacing={2}
-        >
-          <Text>Redes sociales</Text>
-          <Divider orientation="horizontal" width="200px" borderWidth={2} />
-          <Stack direction="row" align="center">
-            <FaInstagram /> <FaYoutube /> <FaFacebookF />
-          </Stack>
-        </Stack>
-      </Flex>
-    </Box>
+          {overviewList.map((data) => (
+            <Box key={data.id}>
+              <HStack spacing={2}>
+                <Flex
+                  fontWeight="bold"
+                  boxShadow="md"
+                  color="white"
+                  bg="blue.400"
+                  rounded="full"
+                  justifyContent="center"
+                  alignItems="center"
+                  w={10}
+                  h={10}
+                >
+                  {data.id}
+                </Flex>
+                <Text fontSize="xl">{data.label}</Text>
+              </HStack>
+              <Text fontSize="md" color="gray.500" ml={12}>
+                {data.subLabel}
+              </Text>
+            </Box>
+          ))}
+        </VStack>
+        <Image
+          boxSize={{ base: "auto", md: "lg" }}
+          objectFit="contain"
+          src="/assets/images/layouts/project_screen.png"
+          rounded="lg"
+        />
+      </Stack>
+    </Container>
   );
 };
 
-const NavItems = ({ linkColor }) => {
-  return (
-    <Flex alignItems="center">
-      <Link
-        href="#"
-        mr={4}
-        fontWeight="normal"
-        fontSize="2xl"
-        color={linkColor}
-        _hover={{ textDecoration: "none", color: "myColor.Aqua" }}
-      >
-        Servicios
-      </Link>
-      <Link
-        href="#"
-        mr={4}
-        fontWeight="normal"
-        fontSize="2xl"
-        color={linkColor}
-        _hover={{ textDecoration: "none", color: "myColor.Aqua" }}
-      >
-        Conócenos
-      </Link>
-      <Link
-        href="#"
-        mr={4}
-        fontWeight="normal"
-        fontSize="2xl"
-        color={linkColor}
-        _hover={{ textDecoration: "none", color: "myColor.Aqua" }}
-      >
-        Contacto
-      </Link>
-      <Link
-        href="#"
-        fontWeight="normal"
-        fontSize="2xl"
-        color={linkColor}
-        _hover={{ textDecoration: "none", color: "myColor.Aqua" }}
-      >
-        FAQ
-      </Link>
-    </Flex>
-  );
-};
-
-export default Navbar;
+export default OverviewSection;
