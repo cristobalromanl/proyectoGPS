@@ -50,17 +50,19 @@ const Navbar = () => {
             <NavItems linkColor={linkColor} />
           </Box>
           <Box ml={4}>
-            <Button
-              bg={singIColor}
-              colorScheme="myColor.Aqua"
-              borderRadius={"12px"}
-              _hover={{
-                cursor: "pointer",
-                fontSize: "xl",
-              }}
-            >
-              Iniciar Sesión
-            </Button>
+            <Link href="/login">
+              <Button
+                bg={singIColor}
+                colorScheme="myColor.Aqua"
+                borderRadius={"12px"}
+                _hover={{
+                  cursor: "pointer",
+                  fontSize: "xl",
+                }}
+              >
+                Iniciar Sesión
+              </Button>
+            </Link>
           </Box>
         </Flex>
       </Box>
@@ -80,7 +82,13 @@ const Navbar = () => {
             Sé parte de la nueva <br />
             experiencia competitiva
           </Heading>
-          <Heading fontSize="4xl" mt={8} mb={8}>
+          <Heading
+            fontSize="4xl"
+            mt={8}
+            mb={4}
+            fontFamily={"FIFA Welcome"}
+            fontWeight={"normal"}
+          >
             Juega y disfruta con amigos
           </Heading>
           <Text fontSize="2xl" mb={8}>
@@ -127,7 +135,7 @@ const Navbar = () => {
         >
           {" "}
           <Text>Enlaces</Text>
-          <Divider orientation="horizontal" width="200px" borderWidth={2} />
+          <Divider orientation="horizontal" width="200px" borderWidth={1} />
           <Text
             _hover={{
               cursor: "pointer",
@@ -162,7 +170,7 @@ const Navbar = () => {
           spacing={2}
         >
           <Text>Datos de contacto</Text>
-          <Divider orientation="horizontal" width="200px" borderWidth={2} />
+          <Divider orientation="horizontal" width="200px" borderWidth={1} />
           <Stack direction="row" align="center">
             <FaPhoneAlt />
             <Text>+569 8765 4321</Text>
@@ -181,7 +189,7 @@ const Navbar = () => {
           spacing={2}
         >
           <Text>Redes sociales</Text>
-          <Divider orientation="horizontal" width="200px" borderWidth={2} />
+          <Divider orientation="horizontal" width="200px" borderWidth={1} />
           <Stack direction="row" align="center">
             <FaInstagram /> <FaYoutube /> <FaFacebookF />
           </Stack>

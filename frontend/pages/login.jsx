@@ -110,7 +110,10 @@ function LoginForm() {
                   fontSize: "md",
                 }}
               >
-                ¿Aun no tienes cuenta? <Link color="#5d3c81">Registrate!</Link>
+                ¿Aun no tienes cuenta?{" "}
+                <Link color="#5d3c81" href="/registro">
+                  Registrate!
+                </Link>
               </Text>
             </Box>
           </Box>
