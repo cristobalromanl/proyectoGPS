@@ -12,6 +12,7 @@ import {
   FormLabel,
   Form,
   Stack,
+  Select,
   FormErrorMessage,
   Text,
   Divider,
@@ -83,7 +84,7 @@ function LoginForm() {
 
                     <Input
                       type="text"
-                      placeholder="usuario@ejemplo.com"
+                      placeholder="Nombre"
                       mt={4}
                       borderColor="gray.400"
                       borderWidth="1px"
@@ -103,7 +104,7 @@ function LoginForm() {
 
                     <Input
                       type="text"
-                      placeholder="usuario@ejemplo.com"
+                      placeholder="Apellidos"
                       mt={4}
                       borderColor="gray.400"
                       borderWidth="1px"
@@ -130,7 +131,7 @@ function LoginForm() {
 
                     <Input
                       type="password"
-                      placeholder="usuario@ejemplo.com"
+                      placeholder="*********"
                       mt={4}
                       borderColor="gray.400"
                       borderWidth="1px"
@@ -150,7 +151,7 @@ function LoginForm() {
 
                     <Input
                       type="password"
-                      placeholder="usuario@ejemplo.com"
+                      placeholder="*********"
                       mt={4}
                       borderColor="gray.400"
                       borderWidth="1px"
@@ -187,7 +188,7 @@ function LoginForm() {
                     spacing="-4px"
                     width="100%"
                   >
-                    <FormLabel>Nombre(s)</FormLabel>
+                    <FormLabel>Correo</FormLabel>
 
                     <Input
                       type="text"
@@ -207,11 +208,11 @@ function LoginForm() {
                     spacing="-4px"
                     width="100%"
                   >
-                    <FormLabel>Apellido(s)</FormLabel>
+                    <FormLabel>Teléfono</FormLabel>
 
                     <Input
-                      type="text"
-                      placeholder="usuario@ejemplo.com"
+                      type="tel"
+                      placeholder="+56987654321"
                       mt={4}
                       borderColor="gray.400"
                       borderWidth="1px"
@@ -234,11 +235,11 @@ function LoginForm() {
                     spacing="-4px"
                     width="100%"
                   >
-                    <FormLabel>Contraseña</FormLabel>
+                    <FormLabel>Región</FormLabel>
 
-                    <Input
-                      type="password"
-                      placeholder="usuario@ejemplo.com"
+                    <Select
+                      placeholder="Selecciona Región"
+                      type="text"
                       mt={4}
                       borderColor="gray.400"
                       borderWidth="1px"
@@ -246,7 +247,29 @@ function LoginForm() {
                       _hover={{
                         borderColor: "gray.600",
                       }}
-                    />
+                    >
+                      <option value="option15">Arica y Parinacota - XV</option>
+                      <option value="region1">Arica y Parinacota - XV</option>
+                      <option value="region2">Tarapacá - I</option>
+                      <option value="region3">Antofagasta - II</option>
+                      <option value="region4">Atacama - III</option>
+                      <option value="region5">Coquimbo - IV</option>
+                      <option value="region6">Valparaiso - V</option>
+                      <option value="region7">
+                        Metropolitana de Santiago - RM
+                      </option>
+                      <option value="region8">
+                        Libertador General Bernardo OHiggins - VI
+                      </option>
+                      <option value="region9">Maule - VII</option>
+                      <option value="region10">Biobío - VIII</option>
+                      <option value="region11">La Araucanía - IX</option>
+                      <option value="region12">Los Ríos - XIV</option>
+                      <option value="region13">Los Lagos - X</option>
+                      <option value="region14">
+                        Aisén del General Carlos Ibáñez del Campo - XI
+                      </option>
+                    </Select>
                   </Stack>{" "}
                   <Stack
                     direction="column"
@@ -254,11 +277,11 @@ function LoginForm() {
                     spacing="-4px"
                     width="100%"
                   >
-                    <FormLabel>Repetir contraseña</FormLabel>
+                    <FormLabel>Comuna</FormLabel>
 
                     <Input
                       type="password"
-                      placeholder="usuario@ejemplo.com"
+                      placeholder="Concepción"
                       mt={4}
                       borderColor="gray.400"
                       borderWidth="1px"
