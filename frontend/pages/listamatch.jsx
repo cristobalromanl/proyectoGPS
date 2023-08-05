@@ -23,6 +23,7 @@ import {
   GridItem,
   Stack,
   Divider,
+  Select,
 } from "@chakra-ui/react";
 import {
   FaPhoneAlt,
@@ -32,36 +33,26 @@ import {
   FaFacebookF,
 } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
+
 const overviewList = [
   {
     id: 1,
-    label: "Tenis",
-    image: "/tenis.png",
-    description:
-      "¡Descubre la emoción del fútbol en nuestra plataforma! Consulta la clasificación y enfréntate a ellos en emocionantes partidos.",
+    label: "Equipo Lince",
   },
   {
     id: 2,
-    label: "Basket",
-    image: "/baloncesto.png",
-    description:
-      "¡Descubre la emoción del fútbol en nuestra plataforma! Consulta la clasificación y enfréntate a ellos en emocionantes partidos.",
+    label: "Equipo Dragon",
   },
   {
     id: 3,
-    label: "Futbol",
-    image: "/futbol.png",
-    description:
-      "¡Descubre la emoción del fútbol en nuestra plataforma! Consulta la clasificación y enfréntate a ellos en emocionantes partidos.",
+    label: "Equipo Bicho",
   },
   {
     id: 4,
-    label: "Padel",
-    image: "/padel.png",
-    description:
-      "¡Descubre la emoción del fútbol en nuestra plataforma! Consulta la clasificación y enfréntate a ellos en emocionantes partidos.",
+    label: "Equipo L",
   },
 ];
+
 const menuMatch = () => {
   const navBg = useColorModeValue("myColor.Eminence", "myColor.Eminence");
   const linkColor = useColorModeValue("myColor.Snow", "myColor.Snow");
@@ -99,12 +90,10 @@ const menuMatch = () => {
           </Box>
         </Flex>
       </Box>
-      <Box
+      <Flex
         height="90vh"
-        bg="myColor.Aqua"
-        fontFamily="Inter"
-        alignItems="center"
         justifyContent="center"
+        alignItems={"center"}
         display="flex"
         backgroundImage={
           " linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.40)), url(./background.png)"
@@ -114,44 +103,18 @@ const menuMatch = () => {
         backgroundSize="cover"
         backgroundColor="rgba(0, 0, 0, 0.25)"
       >
-        <Stack
-          spacing={4}
-          p={4}
-          align="center"
-          direction="column"
-          color="#ffffff"
-        >
-          <Heading>Lista de equipos</Heading>
-          <Text fontWeight="xl">
-            Conoce los distintos equipos y busca nuevos rivales para desafiar.
-          </Text>
-          <SimpleGrid
-            width={"1000px"}
-            spacing={4}
-            pt={4}
-            templateColumns="repeat(auto-fill, minmax(200px, 1fr))"
-          >
-            {overviewList.map((data) => (
-              <Card>
-                <Stack>
-                  <Flex align="center" p={4}>
-                    <Image src={data.image} height="26px" />
-                    <Heading size="md" ml={4}>
-                      {data.label}
-                    </Heading>
-                  </Flex>
-                </Stack>
-                <CardBody>
-                  <Text textAlign="left">{data.description} </Text>
-                </CardBody>
-                <CardFooter>
-                  <Button>Buscar</Button>
-                </CardFooter>
-              </Card>
-            ))}
-          </SimpleGrid>
-        </Stack>
-      </Box>
+        <Box w={"80%"} h={"90%"} bg={"myColor.Snow"} p={10}>
+          <Stack spacing={4}>
+            <Heading>Selecciona equipo:</Heading>
+            <Select placeholder="Select option">
+              {overviewList.map((data) => (
+                <option value={data.label}>{data.label}</option>
+              ))}
+            </Select>
+          </Stack>
+        </Box>
+      </Flex>
+      {/* Footer */}
       <Flex
         height="240px"
         bg="myColor.Eminence"
