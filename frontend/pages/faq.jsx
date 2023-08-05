@@ -66,14 +66,16 @@ const Navbar = () => {
       {/* Header */}
       <Box px={36} py={2} bg={navBg}>
         <Flex alignItems="center">
-          <Image
-            src="/Sportify.png"
-            alt="logo"
-            width="100px"
-            height="100px"
-            borderRadius="full"
-            objectFit="cover"
-          ></Image>
+          <Link href="/home">
+            <Image
+              src="/Sportify.png"
+              alt="logo"
+              width="100px"
+              height="100px"
+              borderRadius="full"
+              objectFit="cover"
+            ></Image>
+          </Link>
           <Spacer />
           <Box display={{ base: "none", md: "flex" }}>
             {" "}
