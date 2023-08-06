@@ -67,13 +67,7 @@ const navbarUsr = () => {
           backgroundRepeat="no-repeat"
           backgroundSize="cover"
           backgroundColor="rgba(0, 0, 0, 0.25)"
-          sx={{
-            "@media screen and (max-width: 855px)": {
-              pt: "20px",
-              width: "900px!important",
-              height: "1200px",
-            },
-          }}
+          
         >
           <Flex
             flexWrap="wrap"
