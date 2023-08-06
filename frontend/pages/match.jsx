@@ -21,9 +21,48 @@ import {
   CardFooter,
   Grid,
   GridItem,
+  HStack,
   Stack,
+  Divider,
 } from "@chakra-ui/react";
-
+import {
+  FaPhoneAlt,
+  FaInstagram,
+  FaYoutube,
+  FaFacebook,
+  FaFacebookF,
+} from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
+const overviewList = [
+  {
+    id: 1,
+    label: "Tenis",
+    image: "/tenis.png",
+    description:
+      "¡Descubre la emoción del fútbol en nuestra plataforma! Consulta la clasificación y enfréntate a ellos en emocionantes partidos.",
+  },
+  {
+    id: 2,
+    label: "Basket",
+    image: "/baloncesto.png",
+    description:
+      "¡Descubre la emoción del fútbol en nuestra plataforma! Consulta la clasificación y enfréntate a ellos en emocionantes partidos.",
+  },
+  {
+    id: 3,
+    label: "Futbol",
+    image: "/futbol.png",
+    description:
+      "¡Descubre la emoción del fútbol en nuestra plataforma! Consulta la clasificación y enfréntate a ellos en emocionantes partidos.",
+  },
+  {
+    id: 4,
+    label: "Padel",
+    image: "/padel.png",
+    description:
+      "¡Descubre la emoción del fútbol en nuestra plataforma! Consulta la clasificación y enfréntate a ellos en emocionantes partidos.",
+  },
+];
 const menuMatch = () => {
   const navBg = useColorModeValue("myColor.Eminence", "myColor.Eminence");
   const linkColor = useColorModeValue("myColor.Snow", "myColor.Snow");
@@ -62,7 +101,7 @@ const menuMatch = () => {
         </Flex>
       </Box>
       <Box
-        height="80vh"
+        height="90vh"
         bg="myColor.Aqua"
         fontFamily="Inter"
         alignItems="center"
@@ -88,94 +127,111 @@ const menuMatch = () => {
             Conoce los distintos equipos y busca nuevos rivales para desafiar.
           </Text>
           <SimpleGrid
-            width={"1000px"}
+            width={"1200px"}
             spacing={4}
             pt={4}
-            templateColumns="repeat(auto-fill, minmax(200px, 1fr))"
+            templateColumns="repeat(auto-fill, minmax(240px, 1fr))"
           >
-            <Card>
-              <Stack>
-                <Flex align="center" p={4}>
-                  <Image src="/tenis.png" height="26px" />
-                  <Heading size="md" ml={4}>
-                    Tenis
-                  </Heading>
-                </Flex>
-              </Stack>
-              <CardBody>
-                <Text textAlign="left">
-                  ¡Descubre la emoción del tenis en nuestra plataforma! Consulta
-                  la clasificación y enfréntate a ellos en emocionantes
-                  partidos.{" "}
-                </Text>
-              </CardBody>
-              <CardFooter>
-                <Button>Buscar</Button>
-              </CardFooter>
-            </Card>
-            <Card>
-              <Stack>
-                <Flex align="center" p={4}>
-                  <Image src="/baloncesto.png" height="26px" />
-                  <Heading size="md" ml={4}>
-                    Basket
-                  </Heading>
-                </Flex>
-              </Stack>
-              <CardBody>
-                <Text textAlign="left">
-                  ¡Descubre la emoción del basket en nuestra plataforma!
-                  Consulta la clasificación y enfréntate a ellos en emocionantes
-                  partidos.{" "}
-                </Text>
-              </CardBody>
-              <CardFooter>
-                <Button>Buscar</Button>
-              </CardFooter>
-            </Card>
-            <Card>
-              <Stack>
-                <Flex align="center" p={4}>
-                  <Image src="/futbol.png" height="26px" />
-                  <Heading size="md" ml={4}>
-                    Futbol
-                  </Heading>
-                </Flex>
-              </Stack>
-              <CardBody>
-                <Text textAlign="left">
-                  ¡Descubre la emoción del fútbol en nuestra plataforma!
-                  Consulta la clasificación y enfréntate a ellos en emocionantes
-                  partidos.{" "}
-                </Text>
-              </CardBody>
-              <CardFooter>
-                <Button>Buscar</Button>
-              </CardFooter>
-            </Card>
-            <Card>
-              <Stack>
-                <Flex align="center" p={4}>
-                  <Image src="/raqueta-de-padel.png" height="26px" />
-                  <Heading size="md" ml={4}>
-                    Padel
-                  </Heading>
-                </Flex>
-              </Stack>
-              <CardBody>
-                <Text textAlign="left">
-                  ¡Descubre la emoción del padel en nuestra plataforma! Consulta
-                  la clasificación y enfréntate a ellos en emocionantes
-                  partidos.{" "}
-                </Text>
-              </CardBody>
-              <CardFooter>
-                <Button>Buscar</Button>
-              </CardFooter>
-            </Card>
+            {overviewList.map((data) => (
+              <Card>
+                <Stack>
+                  <Flex align="center" p={4}>
+                    <Image src={data.image} height="26px" />
+                    <Heading size="md" ml={4}>
+                      {data.label}
+                    </Heading>
+                  </Flex>
+                </Stack>
+                <CardBody>
+                  <Text textAlign="left">{data.description} </Text>
+                </CardBody>
+                <CardFooter>
+                  <Link href="/listamatch">
+                    <Button>Buscar</Button>
+                  </Link>
+                </CardFooter>
+              </Card>
+            ))}
           </SimpleGrid>
         </Stack>
       </Box>
+      <Flex
+        height="240px"
+        bg="myColor.Eminence"
+        fontSize="2xl"
+        color="#ffffff"
+        fontFamily="Inter"
+      >
+        <Stack
+          direction="column" // Stacks the elements vertically
+          width="33%"
+          alignItems="center"
+          justifyContent="center"
+          fontSize="lg"
+          spacing={2} // Adds spacing between the stacked elements
+        >
+          {" "}
+          <Text>Enlaces</Text>
+          <Divider orientation="horizontal" width="200px" borderWidth={1} />
+          <Text
+            _hover={{
+              cursor: "pointer",
+              fontSize: "xl",
+            }}
+          >
+            Servicios
+          </Text>
+          <Text
+            _hover={{
+              cursor: "pointer",
+              fontSize: "xl",
+            }}
+          >
+            Contacto
+          </Text>
+          <Text
+            _hover={{
+              cursor: "pointer",
+              fontSize: "xl",
+            }}
+          >
+            FAQ
+          </Text>
+        </Stack>
+        <Stack
+          direction="column"
+          width="33%"
+          alignItems="center"
+          justifyContent="center"
+          fontSize="lg"
+          spacing={2}
+        >
+          <Text>Datos de contacto</Text>
+          <Divider orientation="horizontal" width="200px" borderWidth={1} />
+          <Stack direction="row" align="center">
+            <FaPhoneAlt />
+            <Text>+569 8765 4321</Text>
+          </Stack>
+          <Stack direction="row" align="center">
+            <MdEmail />
+            <Text>contacto@sportify.cl</Text>
+          </Stack>
+        </Stack>
+        <Stack
+          direction="column"
+          width="33%"
+          alignItems="center"
+          justifyContent="center"
+          fontSize="lg"
+          spacing={2}
+        >
+          <Text>Redes sociales</Text>
+          <Divider orientation="horizontal" width="200px" borderWidth={1} />
+          <Stack direction="row" align="center">
+            <FaInstagram /> <FaYoutube /> <FaFacebookF />
+          </Stack>
+        </Stack>
+      </Flex>
     </Box>
   );
 };

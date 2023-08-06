@@ -328,7 +328,7 @@ function LoginForm() {
                   }}
                 >
                   Ya tienes una cuenta?{" "}
-                  <Link color="#5d3c81" fontWeight={"semibold"}>
+                  <Link color="#5d3c81" fontWeight={"semibold"} href="/login">
                     Ingresa ahora!
                   </Link>
                 </Text>
