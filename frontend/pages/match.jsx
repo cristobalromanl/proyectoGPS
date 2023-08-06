@@ -21,6 +21,7 @@ import {
   CardFooter,
   Grid,
   GridItem,
+  HStack,
   Stack,
   Divider,
 } from "@chakra-ui/react";
@@ -126,10 +127,10 @@ const menuMatch = () => {
             Conoce los distintos equipos y busca nuevos rivales para desafiar.
           </Text>
           <SimpleGrid
-            width={"1000px"}
+            width={"1200px"}
             spacing={4}
             pt={4}
-            templateColumns="repeat(auto-fill, minmax(200px, 1fr))"
+            templateColumns="repeat(auto-fill, minmax(240px, 1fr))"
           >
             {overviewList.map((data) => (
               <Card>
@@ -145,7 +146,9 @@ const menuMatch = () => {
                   <Text textAlign="left">{data.description} </Text>
                 </CardBody>
                 <CardFooter>
-                  <Button>Buscar</Button>
+                  <Link href="/listamatch">
+                    <Button>Buscar</Button>
+                  </Link>
                 </CardFooter>
               </Card>
             ))}

@@ -47,7 +47,7 @@ function LoginForm() {
               Recuperar Contraseña{" "}
             </Heading>
             <hr />
-            <Stack alignItems="center">
+            <Stack alignItems="center" spacing={8}>
               <FormControl
                 mt={4}
                 color="#000000"
