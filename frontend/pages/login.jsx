@@ -102,7 +102,9 @@ function LoginForm() {
               Iniciar sesión
             </Button>
             <Box textAlign="center" mt={5}>
-              <Link color="#5d3c81">¿Olvidaste tu contraseña?</Link>
+              <Link color="#5d3c81" href="/recuperar">
+                ¿Olvidaste tu contraseña?
+              </Link>
               <Text
                 color="#000000"
                 fontWeight="semibold"
@@ -110,7 +112,10 @@ function LoginForm() {
                   fontSize: "md",
                 }}
               >
-                ¿Aun no tienes cuenta? <Link color="#5d3c81">Registrate!</Link>
+                ¿Aun no tienes cuenta?{" "}
+                <Link color="#5d3c81" href="/registro">
+                  Registrate!
+                </Link>
               </Text>
             </Box>
           </Box>

@@ -6,6 +6,7 @@ import {
   Text,
   Image,
   Button,
+  useColorModeValue,
   Link,
   Wrap,
   WrapItem,
@@ -15,19 +16,13 @@ import {
 } from "@chakra-ui/react";
 
 const navbarUsr = () => {
+  const navBg = useColorModeValue("myColor.Eminence", "myColor.Eminence");
+  const linkColor = useColorModeValue("myColor.Snow", "myColor.Snow");
+  const singIColor = useColorModeValue("myColor.Aqua", "myColor.Aqua");
   return (
     <Box>
-      <Box
-        position="relative"
-        bg="myColor.Eminence"
-        px={20}
-        py={2}
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        width="100%"
-      >
-        <Flex alignItems="center" width="100%">
+      <Box px={36} py={2} bg={navBg}>
+        <Flex alignItems="center">
           <Image
             src="/Sportify.png"
             alt="logo"
@@ -38,10 +33,19 @@ const navbarUsr = () => {
           ></Image>
           <Spacer />
           <Box display={{ base: "none", md: "flex" }}>
-            <NavItems linkColor="myColor.Snow" />
+            {" "}
+            <NavItems linkColor={linkColor} />
           </Box>
           <Box ml={4}>
-            <Button bg="myColor.Aqua" color="myColor.Snow">
+            <Button
+              bg={singIColor}
+              colorScheme="myColor.Aqua"
+              borderRadius={"12px"}
+              _hover={{
+                cursor: "pointer",
+                fontSize: "xl",
+              }}
+            >
               Cerrar Sesión
             </Button>
           </Box>
@@ -57,11 +61,19 @@ const navbarUsr = () => {
         <Box
           width="100%"
           backgroundImage={
-            "url(https://images.unsplash.com/photo-1600267175161-cfaa711b4a81?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80)"
+            " linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.40)), url(./background.png)"
           }
           backgroundPosition="center"
           backgroundRepeat="no-repeat"
           backgroundSize="cover"
+          backgroundColor="rgba(0, 0, 0, 0.25)"
+          sx={{
+            "@media screen and (max-width: 855px)": {
+              pt: "20px",
+              width: "900px!important",
+              height: "1200px",
+            },
+          }}
         >
           <Flex
             flexWrap="wrap"
@@ -81,7 +93,7 @@ const navbarUsr = () => {
                     _hover={{
                       border: "2px solid #05f3ff",
                       cursor: "pointer",
-                      opacity: 0.75,
+                      opacity: 0.95,
                     }}
                   ></Center>
                 </WrapItem>
@@ -92,7 +104,11 @@ const navbarUsr = () => {
                     borderRadius={3}
                     w={615}
                     h={210}
-                    _hover={{ border: "2px solid #05f3ff", cursor: "pointer" }}
+                    _hover={{
+                      border: "2px solid #05f3ff",
+                      cursor: "pointer",
+                      opacity: 0.95,
+                    }}
                   ></Center>
                 </WrapItem>
               </Wrap>
@@ -103,10 +119,14 @@ const navbarUsr = () => {
                   borderRadius={3}
                   w={532}
                   h={430}
-                  _hover={{ border: "2px solid #05f3ff", cursor: "pointer" }}
+                  _hover={{
+                    border: "2px solid #05f3ff",
+                    cursor: "pointer",
+                    opacity: 0.95,
+                  }}
                   sx={{
                     "@media screen and (max-width: 855px)": {
-                      width: "410px!important",
+                      width: "610px!important",
                       height: "300px",
                     },
                   }}
@@ -122,7 +142,11 @@ const navbarUsr = () => {
                     borderRadius={3}
                     w={300}
                     h={202}
-                    _hover={{ border: "2px solid #05f3ff", cursor: "pointer" }}
+                    _hover={{
+                      border: "2px solid #05f3ff",
+                      cursor: "pointer",
+                      opacity: 0.95,
+                    }}
                     sx={{
                       "@media screen and (max-width: 455px)": {
                         width: "410px!important",
@@ -138,7 +162,11 @@ const navbarUsr = () => {
                     borderRadius={3}
                     w={300}
                     h={202}
-                    _hover={{ border: "2px solid #05f3ff", cursor: "pointer" }}
+                    _hover={{
+                      border: "2px solid #05f3ff",
+                      cursor: "pointer",
+                      opacity: 0.95,
+                    }}
                     sx={{
                       "@media screen and (max-width: 455px)": {
                         width: "410px!important",
@@ -155,11 +183,15 @@ const navbarUsr = () => {
                     borderRadius={3}
                     w={532}
                     h={202}
-                    _hover={{ border: "2px solid #05f3ff", cursor: "pointer" }}
+                    _hover={{
+                      border: "2px solid #05f3ff",
+                      cursor: "pointer",
+                      opacity: 0.95,
+                    }}
                     sx={{
                       "@media screen and (max-width: 855px)": {
-                        width: "410px!important",
-                        height: "140px",
+                        width: "610px!important",
+                        height: "202px",
                       },
                     }}
                   ></Center>
@@ -172,7 +204,6 @@ const navbarUsr = () => {
     </Box>
   );
 };
-
 const NavItems = ({ linkColor }) => {
   return (
     <Flex alignItems="center">
@@ -180,11 +211,11 @@ const NavItems = ({ linkColor }) => {
         href="#"
         mr={4}
         fontWeight="medium"
-        fontSize="md"
+        fontSize="2xl"
         color={linkColor}
         _hover={{ textDecoration: "none", color: "myColor.Aqua" }}
       >
-        Home
+        Usuario{" "}
       </Link>
     </Flex>
   );
