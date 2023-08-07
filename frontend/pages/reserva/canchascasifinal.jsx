@@ -25,42 +25,173 @@ const xd= ()=> {
     setCategoriaSeleccionada(categoria);
   };
   const horasPredefinidas = ['12:00', '13:00', '14:00', '15:00', '16:00'];
-  const dataCanchas = [//llamar a la bdd y asignar la data por aca lksdsd
-    {
-      category: 'Futbol',
-      canchas: [
-        { nombre: 'Cancha 1',   },
-        { nombre: 'Cancha 2', '12:00': true, '13:00': false, '14:00': true, '15:00': false, '16:00': true },
-      ],
-    },
-    {
-      category: 'Tenis',
-      canchas: [
-        { nombre: 'Tenis 1', '12:00': true, '13:00': true, '14:00': false, '15:00': true, '16:00': false },
-        { nombre: 'Tenis 2 ', '12:00': true, '13:00': false, '14:00': true, '15:00': false, '16:00': true },
-      ],
-    },
 
+  const [canchasConReservas, setCanchasConReservas] = useState([]);
+
+useEffect(() => {
+  const canchasConReservasData = Campos.map((cancha) => {
+    const reservasCancha = cancha.reservations;
+    const ocupacionPorHora = horasPredefinidas.map((hora) => {
+      const reserva = reservasCancha.find((reserva) => reserva.createdAt.includes(hora));
+      return reserva && reserva.isConfirmed;
+    });
+    return {
+      ...cancha,
+      ocupacionPorHora,
+    };
+  });
+  setCanchasConReservas(canchasConReservasData);
+}, []);
+  const Reservas = [
+    {
+      id: 1,
+      createdAt: '2023-08-06T13:00:00Z',
+      updatedAt: '2023-08-06T13:00:00Z',
+      starDate: '2023-08-06T16:00:00Z',
+      isConfirmed: true,
+      userId: 1,
+      fieldId: 1,
+    },
+    {
+        id: 2,
+        createdAt: '2023-08-06T14:00:00Z',
+        updatedAt: '2023-08-06T14:00:00Z',
+        starDate: '2023-08-06T13:00:00Z',
+        isConfirmed: true,
+        userId: 2,
+        fieldId: 1,
+      },
+      {
+        id: 3,
+        createdAt: '2023-08-06T15:00:00Z',
+        updatedAt: '2023-08-06T15:00:00Z',
+        starDate: '2023-08-06T16:00:00Z',
+        isConfirmed: true,
+        userId: 3,
+        fieldId: 2,
+      },
   ];
-
-  const getColumnForHora = (hora) => ({ 
+const Campos = [
+  {
+    id: 1,
+    createdAt: '2023-08-06T00:00:00Z',
+    updatedAt: '2023-08-06T00:00:00Z',
+    name: 'Campo 1',
+    description: 'Descripción fubol',
+    price: 10000,
+    categoryId: 1,
+    reservations: [],
+  },
+  {
+    id: 2,
+    createdAt: '2023-08-06T00:00:00Z',
+    updatedAt: '2023-08-06T00:00:00Z',
+    name: 'Campo 2',
+    description: 'Descripción del Campo 2',
+    price: 15000,
+    categoryId: 2,
+    reservations: [],
+  },
+  {
+    id: 3,
+    createdAt: '2023-08-06T00:00:00Z',
+    updatedAt: '2023-08-06T00:00:00Z',
+    name: 'Campo 3',
+    description: 'Descripción fubol',
+    price: 15000,
+    categoryId: 1,
+    reservations: [],
+  },
+];
+const Categorias = [
+    {
+      id: 1,
+      createdAt: '2023-08-06T00:00:00Z',
+      updatedAt: '2023-08-06T00:00:00Z',
+      name: 'Futbol',
+      fields: Campos.filter((campo) => campo.categoryId === 1),
+    },
+    {
+      id: 2,
+      createdAt: '2023-08-06T00:00:00Z',
+      updatedAt: '2023-08-06T00:00:00Z',
+      name: 'Tenis',
+      fields: Campos.filter((campo) => campo.categoryId === 2),
+    },
     
+  ];
+  const getColumnForHora = (hora) => ({
     name: hora,
     center: true,
     cell: (row) => {
-      const cancha=row;
-      const isCanchaOcupada = row[hora]; //  estado de ocupación de la cancha desde segun los datos del backend
-      const ButtonComponent = isCanchaOcupada ? (
-        <Button onClick={() => handleOcupado()} size="xs" width="100px" bg="red.500" color="red" className="btn btn-outline btn-xs">
-          <Icon as={BsX} color="white" />
-        </Button>
-      ) : (
-        <Button onClick={() => handleLibre(cancha, hora)} size="xs" width="100px" bg="green.500" color="green" className="btn btn-outline btn-xs">
-          <Icon as={BsCheck} color="white" />
-        </Button>
-      );return ButtonComponent;
-    }
+      const cancha = row;
+      const reservasCancha = cancha.reservations;
+      const reserva = reservasCancha.find((reserva) => reserva.starDate.includes(hora));
+      if (reserva && reserva.isConfirmed) {
+        return (
+          <Button
+            onClick={() => handleOcupado()}
+            size="xs"
+            width="100px"
+            bg="red.500"
+            color="red"
+            className="btn btn-outline btn-xs"
+          >
+            <Icon as={BsX} color="white" />
+          </Button>
+        );
+      } else {
+        return (
+          <Button
+            onClick={() => handleLibre(cancha, hora)}
+            size="xs"
+            width="100px"
+            bg="green.500"
+            color="green"
+            className="btn btn-outline btn-xs"
+          >
+            <Icon as={BsCheck} color="white" />
+          </Button>
+        );
+      }
+    },
   });
+  
+
+
+    // ...
+
+// Filtrar las reservas según la categoría seleccionada
+const reservasFiltradas = Reservas.filter((reserva) => {
+  const cancha = Campos.find((campo) => campo.id === reserva.fieldId);
+  if (!cancha) return false;
+  const categoria = Categorias.find((cat) => cat.id === cancha.categoryId);
+  return categoria && categoria.name === categoriaSeleccionada;
+});
+
+// Asignar solo las reservas filtradas a las canchas filtradas
+const canchasFiltradas = categoriaSeleccionada === ''
+  ? Campos
+  : Campos.filter((cancha) => {
+      const categoria = Categorias.find((cat) => cat.id === cancha.categoryId);
+      return categoria && categoria.name === categoriaSeleccionada;
+    }).map((cancha) => ({
+      ...cancha,
+      reservations: reservasFiltradas.filter((reserva) => reserva.fieldId === cancha.id),
+    }));
+
+const columnas = [
+        { name: 'Cancha', selector: 'name', sortable: true },
+        {   name: 'Deporte',
+            selector: (row) => {
+              const categoria = Categorias.find((cat) => cat.id === row.categoryId);
+              return categoria ? categoria.name : '';
+            },
+            sortable: true,
+          },
+        //  columnas para cada hora predefinida
+        ...horasPredefinidas.map((hora) => getColumnForHora(hora)),
+]; 
   const handleOcupado = () => {
     setAbrirModalOcupado(true);
   };
@@ -114,17 +245,10 @@ const xd= ()=> {
     </ModalContent>
     </div>
 )
-  const canchasFiltradas = 
-  categoriaSeleccionada === ''
-    ?  dataCanchas.flatMap((categoria)=> categoria.canchas)
-    : dataCanchas.find((categoria) => categoria.category === categoriaSeleccionada)?.canchas || [];
 
-  const columnas = [
-    { name: 'Cancha', selector: 'nombre', sortable: true },
-    //  columnas para cada hora predefinida
-    ...horasPredefinidas.map((hora) => getColumnForHora(hora)),
-  
-  ];
+
+
+
   return (
     <Container  margin={'0'} p={'0'} maxW={'full'} maxH={'full'}>
       

@@ -13,7 +13,7 @@ const reservas= ()=> {
   /*const [dataCanchas, setDataCanchas] = useState([]);
 
   useEffect(() => {
-    // petición GET a la ruta del backend que devuelve la información de las canchas
+    //  GET a la ruta del backend que devuelve la información de las canchas
     axios.get('/aca poner la ruta del backend donde conseguir los datos')
       .then((response) => {
         // Actualizar el estado con los datos recibidos del backend
