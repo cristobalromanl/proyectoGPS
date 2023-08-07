@@ -5,7 +5,7 @@ import path from 'path'
 export const getFields = async (_req, res) => {
   try {
     const fields = await db.field.findMany({
-      include: { category: true, club: true, reservations: true }
+      include: { category: true, reservations: true }
     })
 
     return res.json(fields)
@@ -18,7 +18,7 @@ export const getFields = async (_req, res) => {
 
 export const createField = async (req, res) => {
   try {
-    const { name, description, imagePath, price, categoryId, clubId } = req.body
+    const { name, description, imagePath, price, categoryId } = req.body
 
     if (imagePath && !fs.existsSync(path.resolve(imagePath))) {
       return res.status(404).json({
@@ -33,16 +33,9 @@ export const createField = async (req, res) => {
       })
     }
 
-    const club = await db.club.findFirst({ where: { id: clubId } })
-    if (!club) {
-      return res.status(404).json({
-        message: 'El club no existe'
-      })
-    }
-
     const field = await db.field.create({
-      data: { name, description, imagePath, price, categoryId, clubId },
-      include: { category: true, club: true, reservations: true }
+      data: { name, description, imagePath, price, categoryId },
+      include: { category: true, reservations: true }
     })
 
     return res.status(201).json({
@@ -62,7 +55,7 @@ export const getField = async (req, res) => {
 
     const field = await db.field.findUnique({
       where: { id },
-      include: { category: true, club: true, reservations: true }
+      include: { category: true, reservations: true }
     })
 
     if (!field) {
@@ -82,7 +75,7 @@ export const getField = async (req, res) => {
 export const updateField = async (req, res) => {
   try {
     const id = parseInt(req.params.id)
-    const { name, description, imagePath, price, categoryId, clubId } = req.body
+    const { name, description, imagePath, price, categoryId } = req.body
 
     if (imagePath && !fs.existsSync(path.resolve(imagePath))) {
       return res.status(404).json({
@@ -97,17 +90,10 @@ export const updateField = async (req, res) => {
       })
     }
 
-    const club = await db.club.findFirst({ where: { id: clubId } })
-    if (!club) {
-      return res.status(404).json({
-        message: 'El club no existe'
-      })
-    }
-
     const field = await db.field.update({
       where: { id },
-      data: { name, description, imagePath, price, categoryId, clubId },
-      include: { category: true, club: true, reservations: true }
+      data: { name, description, imagePath, price, categoryId },
+      include: { category: true, reservations: true }
     })
 
     if (!field) {

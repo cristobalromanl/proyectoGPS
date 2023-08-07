@@ -5,7 +5,7 @@ import path from 'path'
 export const getEquipments = async (_req, res) => {
   try {
     const equipments = await db.equipment.findMany({
-      include: { category: true, club: true, reservations: true }
+      include: { category: true, reservations: true }
     })
 
     return res.json(equipments)
@@ -18,7 +18,7 @@ export const getEquipments = async (_req, res) => {
 
 export const createEquipment = async (req, res) => {
   try {
-    const { name, description, imagePath, price, quantity, categoryId, clubId } = req.body
+    const { name, description, imagePath, price, quantity, categoryId } = req.body
 
     if (imagePath && !fs.existsSync(path.resolve(imagePath))) {
       return res.status(404).json({
@@ -33,16 +33,9 @@ export const createEquipment = async (req, res) => {
       })
     }
 
-    const club = await db.club.findFirst({ where: { id: clubId } })
-    if (!club) {
-      return res.status(404).json({
-        message: 'El club no existe'
-      })
-    }
-
     const equipment = await db.equipment.create({
-      data: { name, description, imagePath, price, quantity, categoryId, clubId },
-      include: { category: true, club: true, reservations: true }
+      data: { name, description, imagePath, price, quantity, categoryId },
+      include: { category: true, reservations: true }
     })
 
     return res.status(201).json({
@@ -62,7 +55,7 @@ export const getEquipment = async (req, res) => {
 
     const equipment = await db.equipment.findUnique({
       where: { id },
-      include: { category: true, club: true, reservations: true }
+      include: { category: true, reservations: true }
     })
 
     if (!equipment) {
@@ -82,7 +75,7 @@ export const getEquipment = async (req, res) => {
 export const updateEquipment = async (req, res) => {
   try {
     const id = parseInt(req.params.id)
-    const { name, description, imagePath, price, quantity, categoryId, clubId } = req.body
+    const { name, description, imagePath, price, quantity, categoryId } = req.body
 
     if (imagePath && !fs.existsSync(path.resolve(imagePath))) {
       return res.status(404).json({
@@ -97,17 +90,10 @@ export const updateEquipment = async (req, res) => {
       })
     }
 
-    const club = await db.club.findFirst({ where: { id: clubId } })
-    if (!club) {
-      return res.status(404).json({
-        message: 'El club no existe'
-      })
-    }
-
     const equipment = await db.equipment.update({
       where: { id },
-      data: { name, description, imagePath, price, quantity, categoryId, clubId },
-      include: { category: true, club: true, reservations: true }
+      data: { name, description, imagePath, price, quantity, categoryId },
+      include: { category: true, reservations: true }
     })
 
     if (!equipment) {

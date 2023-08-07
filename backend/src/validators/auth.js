@@ -11,6 +11,14 @@ export const validateSignUp = [
   body('password', 'La contraseña debe tener al menos 6 caracteres')
     .trim()
     .isLength({ min: 6 }),
+  body('region', 'La región no debe ser vacía')
+    .optional()
+    .trim()
+    .notEmpty(),
+  body('city', 'La ciudad no debe ser vacía')
+    .optional()
+    .trim()
+    .notEmpty(),
   body('phone', 'El número de teléfono tiene el formato incorrecto')
     .optional()
     .trim()

@@ -6,7 +6,6 @@ export const generateToken = (payload, res) => {
   const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn })
 
   res.cookie('token', token, {
-    httpOnly: true,
     secure: (process.env.MODE === 'production'),
     expires: new Date(Date.now() + expiresIn * 1000)
   })
