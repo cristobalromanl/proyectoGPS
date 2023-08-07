@@ -17,8 +17,10 @@ dotenv.config()
 const port = process.env.PORT || 5000
 app.set('port', port)
 
-app.use(cors())
-app.options('*', cors())
+app.use(cors({
+  origin: process.env.FRONTEND_URL,
+  credentials: true
+}))
 app.use(cookieParser())
 app.use(express.json())
 app.use(express.static('public'))

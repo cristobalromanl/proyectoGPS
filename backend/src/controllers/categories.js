@@ -1,4 +1,6 @@
 import db from '../database.js'
+import fs from 'fs'
+import path from 'path'
 
 export const getCategories = async (_req, res) => {
   try {
@@ -16,10 +18,16 @@ export const getCategories = async (_req, res) => {
 
 export const createCategory = async (req, res) => {
   try {
-    const { name } = req.body
+    const { name, logoPath } = req.body
+
+    if (logoPath && !fs.existsSync(path.resolve(logoPath))) {
+      return res.status(404).json({
+        message: 'El logo no existe'
+      })
+    }
 
     const category = await db.category.create({
-      data: { name },
+      data: { name, logoPath },
       include: { fields: true, equipments: true }
     })
 
@@ -60,11 +68,17 @@ export const getCategory = async (req, res) => {
 export const updateCategory = async (req, res) => {
   try {
     const id = parseInt(req.params.id)
-    const { name } = req.body
+    const { name, logoPath } = req.body
+
+    if (logoPath && !fs.existsSync(path.resolve(logoPath))) {
+      return res.status(404).json({
+        message: 'El logo no existe'
+      })
+    }
 
     const category = await db.category.update({
       where: { id },
-      data: { name },
+      data: { name, logoPath },
       include: { fields: true, equipments: true }
     })
 

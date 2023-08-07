@@ -17,8 +17,6 @@ export const validateCreate = [
     .isInt({ min: 0 }),
   body('categoryId', 'El categoryId debe ser un número mayor o igual a 1')
     .isInt({ min: 1 }),
-  body('clubId', 'El clubId debe ser un número mayor o igual a 1')
-    .isInt({ min: 1 }),
   validationResultHandler
 ]
 
@@ -39,9 +37,6 @@ export const validateUpdate = [
     .optional()
     .isInt({ min: 0 }),
   body('categoryId', 'El categoryId debe ser un número mayor o igual a 1')
-    .optional()
-    .isInt({ min: 1 }),
-  body('clubId', 'El clubId debe ser un número mayor o igual a 1')
     .optional()
     .isInt({ min: 1 }),
   validationResultHandler

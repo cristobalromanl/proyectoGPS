@@ -3,15 +3,16 @@ import { verifyToken } from '../services/jwt.js'
 
 export const checkAuth = async (req, res, next) => {
   try {
-    const bearerToken = req.headers.authorization
-    const token = bearerToken.substring(7)
+    const { token } = req.cookies
+    if (!token) throw new Error()
+
     const { uid } = verifyToken(token)
 
     const user = await db.user.findFirst({ where: { id: uid } })
     if (!user) throw new Error()
 
     req.user = {
-      id: user.id, username: user.username, role: user.role
+      id: user.id, email: user.email, fullName: user.fullName, role: user.role
     }
 
     next()
