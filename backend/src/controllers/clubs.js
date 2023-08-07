@@ -6,8 +6,6 @@ export const getClubs = async (_req, res) => {
   try {
     const clubs = await db.club.findMany({
       include: {
-        fields: true,
-        equipments: true,
         users: {
           select: { id: true, registeredAt: true, email: true, fullName: true, phone: true }
         }
@@ -35,8 +33,6 @@ export const createClub = async (req, res) => {
     const club = await db.club.create({
       data: { name, logoPath },
       include: {
-        fields: true,
-        equipments: true,
         users: {
           select: { id: true, registeredAt: true, email: true, fullName: true, phone: true }
         }
@@ -61,8 +57,6 @@ export const getClub = async (req, res) => {
     const club = await db.club.findUnique({
       where: { id },
       include: {
-        fields: true,
-        equipments: true,
         users: {
           select: { id: true, registeredAt: true, email: true, fullName: true, phone: true }
         }
@@ -98,8 +92,6 @@ export const updateClub = async (req, res) => {
       where: { id },
       data: { name, logoPath },
       include: {
-        fields: true,
-        equipments: true,
         users: {
           select: { id: true, registeredAt: true, email: true, fullName: true, phone: true }
         }

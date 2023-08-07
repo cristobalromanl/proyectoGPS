@@ -5,11 +5,20 @@ export const validateCreate = [
   body('name', 'El nombre no debe ser vacío')
     .trim()
     .notEmpty(),
+  body('logoPath', 'El path del logo no debe ser vacío')
+    .optional()
+    .trim()
+    .notEmpty(),
   validationResultHandler
 ]
 
 export const validateUpdate = [
   body('name', 'El nombre no debe ser vacío')
+    .optional()
+    .trim()
+    .notEmpty(),
+  body('logoPath', 'El path del logo no debe ser vacío')
+    .optional()
     .trim()
     .notEmpty(),
   validationResultHandler

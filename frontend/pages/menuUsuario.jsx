@@ -1,9 +1,7 @@
-import React from "react";
 import {
   Box,
   Flex,
   Spacer,
-  Text,
   Image,
   Button,
   useColorModeValue,
@@ -11,14 +9,28 @@ import {
   Wrap,
   WrapItem,
   Center,
-  VStack,
-  Container,
 } from "@chakra-ui/react";
+import { useAuth } from "../context/AuthContext";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 
+export default function MenuPage() {
+  const router = useRouter();
+  const { isAuthenticated, logout } = useAuth();
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      router.push("/login");
+    }
+  }, [isAuthenticated]);
+
+<<<<<<< HEAD
 const navbarUsr = () => {
   const navBg = useColorModeValue("myColor.Eminence", "myColor.Eminence");
   const linkColor = useColorModeValue("myColor.Snow", "myColor.Snow");
   const singIColor = useColorModeValue("myColor.Aqua", "myColor.Aqua");
+=======
+>>>>>>> carlos
   return (
     <Box>
       <Box px={36} py={2} bg={navBg}>
@@ -37,6 +49,7 @@ const navbarUsr = () => {
             <NavItems linkColor={linkColor} />
           </Box>
           <Box ml={4}>
+<<<<<<< HEAD
             <Button
               bg={singIColor}
               colorScheme="myColor.Aqua"
@@ -46,6 +59,9 @@ const navbarUsr = () => {
                 fontSize: "xl",
               }}
             >
+=======
+            <Button bg="myColor.Aqua" color="myColor.Snow" onClick={logout}>
+>>>>>>> carlos
               Cerrar Sesión
             </Button>
           </Box>
@@ -203,7 +219,12 @@ const navbarUsr = () => {
       </Box>
     </Box>
   );
+<<<<<<< HEAD
 };
+=======
+}
+
+>>>>>>> carlos
 const NavItems = ({ linkColor }) => {
   return (
     <Flex alignItems="center">
@@ -220,5 +241,3 @@ const NavItems = ({ linkColor }) => {
     </Flex>
   );
 };
-
-export default navbarUsr;

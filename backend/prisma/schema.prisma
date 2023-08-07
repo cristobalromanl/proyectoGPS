@@ -13,6 +13,8 @@ model User {
   email        String        @unique
   fullName     String
   password     String
+  region       String?
+  city         String?
   phone        String?
   club         Club?         @relation(fields: [clubId], references: [id])
   clubId       Int?
@@ -25,7 +27,7 @@ model Reservation {
   createdAt   DateTime                   @default(now())
   updatedAt   DateTime                   @updatedAt
   startDate   DateTime
-  endDate     DateTime
+  endDate     DateTime?
   isConfirmed Boolean                    @default(false)
   user        User                       @relation(fields: [userId], references: [id])
   userId      Int
@@ -45,8 +47,6 @@ model Equipment {
   quantity     Int                        @default(0)
   category     Category                   @relation(fields: [categoryId], references: [id])
   categoryId   Int
-  club         Club                       @relation(fields: [clubId], references: [id])
-  clubId       Int
   reservations EquipmentsOnReservations[]
 }
 
@@ -70,8 +70,6 @@ model Field {
   price        Int           @default(0)
   category     Category      @relation(fields: [categoryId], references: [id])
   categoryId   Int
-  club         Club          @relation(fields: [clubId], references: [id])
-  clubId       Int
   reservations Reservation[]
 }
 
@@ -80,19 +78,18 @@ model Category {
   createdAt  DateTime    @default(now())
   updatedAt  DateTime    @updatedAt
   name       String
+  logoPath   String?
   fields     Field[]
   equipments Equipment[]
 }
 
 model Club {
-  id         Int         @id @default(autoincrement())
-  createdAt  DateTime    @default(now())
-  updatedAt  DateTime    @updatedAt
-  name       String
-  logoPath   String?
-  users      User[]
-  fields     Field[]
-  equipments Equipment[]
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name      String
+  logoPath  String?
+  users     User[]
 }
 
 enum Role {
