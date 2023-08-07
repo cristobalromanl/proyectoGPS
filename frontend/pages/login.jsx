@@ -1,28 +1,63 @@
 import {
-  ChakraProvider,
+  Alert,
   Box,
   Input,
   Button,
   Heading,
-  useColorModeValue,
   Flex,
   Image,
   Link,
   FormControl,
   FormLabel,
-  Form,
   Stack,
-  FormErrorMessage,
   Text,
 } from "@chakra-ui/react";
-import React from "react";
 import { Switch } from "@chakra-ui/react";
+import { useAuth } from "../context/AuthContext";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
-function LoginForm() {
-  const bgEminence = useColorModeValue("myColor.Eminence", "myColor.Eminence");
-  const bgSnow = useColorModeValue("myColor.Snow", "myColor.Snow");
+export default function LoginPage() {
+  const router = useRouter();
+  const { isAuthenticated, login } = useAuth();
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+    error: false,
+  });
+
+  const handleChange = (e) => {
+    setUser({
+      ...user,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      await login(user.email, user.password);
+
+      router.push("/home");
+    } catch (error) {
+      setUser({
+        email: "",
+        password: "",
+        error: true,
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      router.push("/home");
+    }
+  }, [isAuthenticated]);
+
   return (
     <Box
+      fontFamily="Inter"
       bg="#5d3c81"
       display="flex"
       justifyContent="center"
@@ -54,53 +89,69 @@ function LoginForm() {
             </Heading>
             <hr />
 
-            <FormControl mt={4} color="#000000">
-              <FormLabel>Correo Electrónico</FormLabel>
-              <Input
-                type="email"
-                placeholder="usuario@ejemplo.com"
-                mb={4}
-                borderColor="gray.400"
-                borderWidth="1px"
-                borderRadius="lg"
-                _hover={{
-                  borderColor: "gray.600",
-                }}
-              />
-              <FormLabel>Contraseña</FormLabel>
-              <Input
-                type="password"
-                placeholder="Contraseña"
-                mb={4}
-                borderColor="gray.400"
-                borderWidth="1px"
-                borderRadius="lg"
-                _hover={{
-                  borderColor: "gray.600",
-                }}
-              />
-              <Stack display="flex" pl={1} pb={2}>
-                <Flex direction="row" align="center">
-                  <Switch id="recuerdame-id" />
-                  <FormLabel htmlFor="recuerdame-id" mt="1" ml="2">
-                    Recordarme
-                  </FormLabel>
-                </Flex>
-              </Stack>
-            </FormControl>
+            {user.error && (
+              <Alert mt={4} status="error">
+                Credenciales incorrectas
+              </Alert>
+            )}
 
-            <Button
-              mb={5}
-              bg="#5d3c81"
-              color="white"
-              width="100%"
-              _hover={{
-                fontSize: "lg",
-                bg: "#05F3FF",
-              }}
-            >
-              Iniciar sesión
-            </Button>
+            <form onSubmit={handleSubmit}>
+              <FormControl mt={4} color="#000000">
+                <FormLabel>Correo Electrónico</FormLabel>
+                <Input
+                  id="email"
+                  type="email"
+                  name="email"
+                  placeholder="usuario@ejemplo.com"
+                  mb={4}
+                  borderColor="gray.400"
+                  borderWidth="1px"
+                  borderRadius="lg"
+                  _hover={{
+                    borderColor: "gray.600",
+                  }}
+                  onChange={handleChange}
+                />
+                <FormLabel>Contraseña</FormLabel>
+                <Input
+                  id="password"
+                  type="password"
+                  name="password"
+                  placeholder="Contraseña"
+                  mb={4}
+                  borderColor="gray.400"
+                  borderWidth="1px"
+                  borderRadius="lg"
+                  _hover={{
+                    borderColor: "gray.600",
+                  }}
+                  onChange={handleChange}
+                />
+                <Stack display="flex" pl={1} pb={2}>
+                  <Flex direction="row" align="center">
+                    <Switch id="recuerdame-id" />
+                    <FormLabel htmlFor="recuerdame-id" mt="1" ml="2">
+                      Recordarme
+                    </FormLabel>
+                  </Flex>
+                </Stack>
+              </FormControl>
+
+              <Button
+                type="submit"
+                mb={5}
+                bg="#5d3c81"
+                color="white"
+                width="100%"
+                _hover={{
+                  fontSize: "lg",
+                  bg: "#05F3FF",
+                }}
+              >
+                Iniciar sesión
+              </Button>
+            </form>
+
             <Box textAlign="center" mt={5}>
               <Link color="#5d3c81">¿Olvidaste tu contraseña?</Link>
               <Text
@@ -122,13 +173,3 @@ function LoginForm() {
     </Box>
   );
 }
-
-function App() {
-  return (
-    <ChakraProvider>
-      <LoginForm />
-    </ChakraProvider>
-  );
-}
-
-export default App;

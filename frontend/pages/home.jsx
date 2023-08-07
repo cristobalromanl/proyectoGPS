@@ -1,60 +1,9 @@
-import {
-  Box,
-  Flex,
-  Spacer,
-  Image,
-  Button,
-  Link,
-  Wrap,
-  WrapItem,
-  Center,
-} from "@chakra-ui/react";
-import { useAuth } from "../context/AuthContext";
-import { useEffect } from "react";
-import { useRouter } from "next/router";
+import { Box, Flex, Wrap, WrapItem, Center } from "@chakra-ui/react";
+import HomeLayout from "@/components/HomeLayout";
 
 export default function MenuPage() {
-  const router = useRouter();
-  const { isAuthenticated, logout } = useAuth();
-
-  useEffect(() => {
-    if (!isAuthenticated) {
-      router.push("/login");
-    }
-  }, [isAuthenticated]);
-
   return (
-    <Box>
-      <Box
-        position="relative"
-        bg="myColor.Eminence"
-        px={20}
-        py={2}
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        width="100%"
-      >
-        <Flex alignItems="center" width="100%">
-          <Image
-            src="/Sportify.png"
-            alt="logo"
-            width="100px"
-            height="100px"
-            borderRadius="full"
-            objectFit="cover"
-          ></Image>
-          <Spacer />
-          <Box display={{ base: "none", md: "flex" }}>
-            <NavItems linkColor="myColor.Snow" />
-          </Box>
-          <Box ml={4}>
-            <Button bg="myColor.Aqua" color="myColor.Snow" onClick={logout}>
-              Cerrar Sesión
-            </Button>
-          </Box>
-        </Flex>
-      </Box>
+    <HomeLayout>
       <Box
         position="relative"
         display="flex"
@@ -65,11 +14,19 @@ export default function MenuPage() {
         <Box
           width="100%"
           backgroundImage={
-            "url(https://images.unsplash.com/photo-1600267175161-cfaa711b4a81?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80)"
+            " linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.40)), url(./background.png)"
           }
           backgroundPosition="center"
           backgroundRepeat="no-repeat"
           backgroundSize="cover"
+          backgroundColor="rgba(0, 0, 0, 0.25)"
+          sx={{
+            "@media screen and (max-width: 855px)": {
+              pt: "20px",
+              width: "900px!important",
+              height: "1200px",
+            },
+          }}
         >
           <Flex
             flexWrap="wrap"
@@ -89,7 +46,7 @@ export default function MenuPage() {
                     _hover={{
                       border: "2px solid #05f3ff",
                       cursor: "pointer",
-                      opacity: 0.75,
+                      opacity: 0.95,
                     }}
                   ></Center>
                 </WrapItem>
@@ -100,7 +57,11 @@ export default function MenuPage() {
                     borderRadius={3}
                     w={615}
                     h={210}
-                    _hover={{ border: "2px solid #05f3ff", cursor: "pointer" }}
+                    _hover={{
+                      border: "2px solid #05f3ff",
+                      cursor: "pointer",
+                      opacity: 0.95,
+                    }}
                   ></Center>
                 </WrapItem>
               </Wrap>
@@ -111,10 +72,14 @@ export default function MenuPage() {
                   borderRadius={3}
                   w={532}
                   h={430}
-                  _hover={{ border: "2px solid #05f3ff", cursor: "pointer" }}
+                  _hover={{
+                    border: "2px solid #05f3ff",
+                    cursor: "pointer",
+                    opacity: 0.95,
+                  }}
                   sx={{
                     "@media screen and (max-width: 855px)": {
-                      width: "410px!important",
+                      width: "610px!important",
                       height: "300px",
                     },
                   }}
@@ -130,7 +95,11 @@ export default function MenuPage() {
                     borderRadius={3}
                     w={300}
                     h={202}
-                    _hover={{ border: "2px solid #05f3ff", cursor: "pointer" }}
+                    _hover={{
+                      border: "2px solid #05f3ff",
+                      cursor: "pointer",
+                      opacity: 0.95,
+                    }}
                     sx={{
                       "@media screen and (max-width: 455px)": {
                         width: "410px!important",
@@ -146,7 +115,11 @@ export default function MenuPage() {
                     borderRadius={3}
                     w={300}
                     h={202}
-                    _hover={{ border: "2px solid #05f3ff", cursor: "pointer" }}
+                    _hover={{
+                      border: "2px solid #05f3ff",
+                      cursor: "pointer",
+                      opacity: 0.95,
+                    }}
                     sx={{
                       "@media screen and (max-width: 455px)": {
                         width: "410px!important",
@@ -163,11 +136,15 @@ export default function MenuPage() {
                     borderRadius={3}
                     w={532}
                     h={202}
-                    _hover={{ border: "2px solid #05f3ff", cursor: "pointer" }}
+                    _hover={{
+                      border: "2px solid #05f3ff",
+                      cursor: "pointer",
+                      opacity: 0.95,
+                    }}
                     sx={{
                       "@media screen and (max-width: 855px)": {
-                        width: "410px!important",
-                        height: "140px",
+                        width: "610px!important",
+                        height: "202px",
                       },
                     }}
                   ></Center>
@@ -177,23 +154,6 @@ export default function MenuPage() {
           </Flex>
         </Box>
       </Box>
-    </Box>
+    </HomeLayout>
   );
 }
-
-const NavItems = ({ linkColor }) => {
-  return (
-    <Flex alignItems="center">
-      <Link
-        href="#"
-        mr={4}
-        fontWeight="medium"
-        fontSize="md"
-        color={linkColor}
-        _hover={{ textDecoration: "none", color: "myColor.Aqua" }}
-      >
-        Home
-      </Link>
-    </Flex>
-  );
-};
