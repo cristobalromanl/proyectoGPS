@@ -8,6 +8,7 @@ import {
   VStack,
   HStack,
   Input,
+  useToast,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
@@ -16,6 +17,7 @@ import HomeLayout from "@/components/HomeLayout";
 
 export default function ReservasPage() {
   const router = useRouter();
+  const toast = useToast();
   const [categories, setCategories] = useState([]);
   const [values, setValues] = useState({
     category: "",
