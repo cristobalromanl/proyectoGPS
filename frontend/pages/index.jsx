@@ -36,14 +36,16 @@ const Navbar = () => {
       {/* Header */}
       <Box px={36} py={2} bg={navBg}>
         <Flex alignItems="center">
-          <Image
-            src="/Sportify.png"
-            alt="logo"
-            width="100px"
-            height="100px"
-            borderRadius="full"
-            objectFit="cover"
-          ></Image>
+          <Link href="/">
+            <Image
+              src="/Sportify.png"
+              alt="logo"
+              width="100px"
+              height="100px"
+              borderRadius="full"
+              objectFit="cover"
+            ></Image>
+          </Link>
           <Spacer />
           <Box display={{ base: "none", md: "flex" }}>
             {" "}
@@ -94,7 +96,7 @@ const Navbar = () => {
           <Text fontSize="2xl" mb={8}>
             ¡Regístrate ahora y reserva tu cancha favorita en solo unos clics!
           </Text>
-          <Link href="###">
+          <Link href="/registro">
             <Button
               bg="myColor.Eminence"
               color="myColor.Snow"
@@ -204,21 +206,7 @@ const NavItems = ({ linkColor }) => {
   return (
     <Flex alignItems="center">
       <Link
-        href="#"
-        mr={4}
-        fontWeight="normal"
-        fontSize="2xl"
-        color={linkColor}
-        _hover={{
-          textDecoration: "none",
-          color: "myColor.Aqua",
-          fontSize: "3xl",
-        }}
-      >
-        Servicios
-      </Link>
-      <Link
-        href="#"
+        href="/conocenos"
         mr={4}
         fontWeight="normal"
         fontSize="2xl"
@@ -232,7 +220,7 @@ const NavItems = ({ linkColor }) => {
         Conócenos
       </Link>
       <Link
-        href="#"
+        href="/recintos"
         mr={4}
         fontWeight="normal"
         fontSize="2xl"
@@ -243,10 +231,10 @@ const NavItems = ({ linkColor }) => {
           fontSize: "3xl",
         }}
       >
-        Contacto
+        Recintos
       </Link>
       <Link
-        href="#"
+        href="/faq"
         fontWeight="normal"
         fontSize="2xl"
         color={linkColor}

@@ -90,7 +90,13 @@ export default function LoginPage() {
             <hr />
 
             {user.error && (
-              <Alert mt={4} status="error">
+              <Alert
+                mt={4}
+                status="error"
+                bg={"myColor.Eminence"}
+                color={"#ffffff"}
+                borderRadius="lg"
+              >
                 Credenciales incorrectas
               </Alert>
             )}

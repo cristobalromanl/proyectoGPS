@@ -32,24 +32,25 @@ import { MdEmail } from "react-icons/md";
 const overviewList = [
   {
     id: 1,
-    label: "Login once per day",
-    subLabel: "The process should be quick.",
+    label: "Regístrate",
+    subLabel: "Crea tu cuenta en nuestra plataforma e inicia la sesión.",
   },
   {
     id: 2,
-    label: "Do your reviews",
-    subLabel: "Reviews come from previous flashcards that you chose.",
+    label: "Reserva tu cancha",
+    subLabel: "Dirígete a la sección de reservas en el menú principal.",
   },
   {
     id: 3,
-    label: "Streak increase",
+    label: "Elige día y hora",
     subLabel:
-      "Your streak increases once per day as long as you finish your reviews.",
+      "Revisa la disponibilidad de canchas y elige el horario que buscas.",
   },
   {
     id: 4,
-    label: "Choose your lesson",
-    subLabel: "This will add 5 new flashcards to your reviews.",
+    label: "Visita nuestro recinto",
+    subLabel:
+      "Bienvenido a Sportify!! disfruta de sesiones deportivas con tu equipo y participa en el torneo de inauguración.",
   },
 ];
 const Navbar = () => {
@@ -66,7 +67,7 @@ const Navbar = () => {
       {/* Header */}
       <Box px={36} py={2} bg={navBg}>
         <Flex alignItems="center">
-          <Link href="/home">
+          <Link href="/">
             <Image
               src="/Sportify.png"
               alt="logo"
@@ -82,17 +83,19 @@ const Navbar = () => {
             <NavItems linkColor={linkColor} />
           </Box>
           <Box ml={4}>
-            <Button
-              bg={singIColor}
-              colorScheme="myColor.Aqua"
-              borderRadius={"12px"}
-              _hover={{
-                cursor: "pointer",
-                fontSize: "xl",
-              }}
-            >
-              Iniciar Sesión
-            </Button>
+            <Link href="/login">
+              <Button
+                bg={singIColor}
+                colorScheme="myColor.Aqua"
+                borderRadius={"12px"}
+                _hover={{
+                  cursor: "pointer",
+                  fontSize: "xl",
+                }}
+              >
+                Iniciar Sesión
+              </Button>
+            </Link>
           </Box>
         </Flex>
       </Box>
@@ -114,7 +117,7 @@ const Navbar = () => {
       >
         <Container maxW="6xl" bg="#f6f2f2" p={20} borderRadius={"md"}>
           <chakra.h2 fontSize="4xl" fontWeight="bold" textAlign="center" mb={8}>
-            Como crear un partido?
+            ¿Cómo reservar una cancha?
           </chakra.h2>
           <Stack
             direction={{ base: "column", md: "row" }}
@@ -247,21 +250,7 @@ const NavItems = ({ linkColor }) => {
   return (
     <Flex alignItems="center">
       <Link
-        href="#"
-        mr={4}
-        fontWeight="normal"
-        fontSize="2xl"
-        color={linkColor}
-        _hover={{
-          textDecoration: "none",
-          color: "myColor.Aqua",
-          fontSize: "3xl",
-        }}
-      >
-        Servicios
-      </Link>
-      <Link
-        href="#"
+        href="/conocenos"
         mr={4}
         fontWeight="normal"
         fontSize="2xl"
@@ -275,7 +264,7 @@ const NavItems = ({ linkColor }) => {
         Conócenos
       </Link>
       <Link
-        href="#"
+        href="/recintos"
         mr={4}
         fontWeight="normal"
         fontSize="2xl"
@@ -286,10 +275,10 @@ const NavItems = ({ linkColor }) => {
           fontSize: "3xl",
         }}
       >
-        Contacto
+        Recintos
       </Link>
       <Link
-        href="#"
+        href="/faq"
         fontWeight="normal"
         fontSize="2xl"
         color={linkColor}
