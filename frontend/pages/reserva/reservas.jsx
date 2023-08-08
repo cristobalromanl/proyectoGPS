@@ -39,7 +39,6 @@ const reservas = () => {
     console.log(values);
     router.push({
       pathname: `./cancha/${values}`,
-
       query: values,
     });
   };
