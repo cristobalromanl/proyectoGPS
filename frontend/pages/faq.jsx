@@ -182,7 +182,7 @@ const Navbar = () => {
           spacing={2} // Adds spacing between the stacked elements
         >
           {" "}
-          <Text>Enlaces</Text>
+          <Text fontSize={"xl"}>Enlaces</Text>
           <Divider orientation="horizontal" width="200px" borderWidth={2} />
           <Text
             _hover={{
@@ -190,7 +190,7 @@ const Navbar = () => {
               fontSize: "xl",
             }}
           >
-            Servicios
+            Conócenos
           </Text>
           <Text
             _hover={{
@@ -198,7 +198,7 @@ const Navbar = () => {
               fontSize: "xl",
             }}
           >
-            Contacto
+            Recintos
           </Text>
           <Text
             _hover={{
