@@ -1,4 +1,5 @@
 import { Box, Flex, Wrap, WrapItem, Center } from "@chakra-ui/react";
+import NextLink from "next/link";
 import HomeLayout from "@/components/HomeLayout";
 
 export default function MenuPage() {
@@ -36,20 +37,22 @@ export default function MenuPage() {
           >
             <Wrap spacing="10px" justify="center" width="100%">
               <Wrap spacing="10px" direction="column">
-                <WrapItem>
-                  <Center
-                    bg={`url("./Reserva.png")`}
-                    backgroundSize="cover"
-                    borderRadius={3}
-                    w={615}
-                    h={210}
-                    _hover={{
-                      border: "2px solid #05f3ff",
-                      cursor: "pointer",
-                      opacity: 0.95,
-                    }}
-                  ></Center>
-                </WrapItem>
+                <NextLink href="/reservas">
+                  <WrapItem>
+                    <Center
+                      bg={`url("./Reserva.png")`}
+                      backgroundSize="cover"
+                      borderRadius={3}
+                      w={615}
+                      h={210}
+                      _hover={{
+                        border: "2px solid #05f3ff",
+                        cursor: "pointer",
+                        opacity: 0.95,
+                      }}
+                    ></Center>
+                  </WrapItem>
+                </NextLink>
                 <WrapItem>
                   <Center
                     bg={`url("./Match.png")`}

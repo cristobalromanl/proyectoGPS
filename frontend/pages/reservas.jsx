@@ -1,17 +1,43 @@
-import { Box, Flex, useToast } from "@chakra-ui/react";
+import {
+  FormControl,
+  FormLabel,
+  Button,
+  Heading,
+  Spacer,
+  Select,
+  VStack,
+  HStack,
+  Input,
+} from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { getAll } from "@/services/reservations";
+import { useRouter } from "next/router";
+import { getAll } from "@/services/categories";
 import HomeLayout from "@/components/HomeLayout";
 
 export default function ReservasPage() {
-  const toast = useToast();
-  const [reservas, setReservas] = useState([]);
-  const [cargando, setCargando] = useState(true);
+  const router = useRouter();
+  const [categories, setCategories] = useState([]);
+  const [values, setValues] = useState({
+    category: "",
+    date: "",
+  });
+
+  const onChange = (e) => {
+    setValues({
+      ...values,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    router.push({ pathname: "/canchas", query: values });
+  };
 
   useEffect(() => {
     getAll()
-      .then((reservas) => setReservas(reservas))
-      .finally(() => setCargando(false))
+      .then((categorias) => setCategories(categorias))
       .catch((_error) =>
         toast({
           title: "Error al obtener los datos. Intentelo más tarde.",
@@ -23,43 +49,66 @@ export default function ReservasPage() {
 
   return (
     <HomeLayout>
-      <Box
-        fontFamily="Inter"
-        position="relative"
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        width="100%"
+      <VStack
+        m={"0"}
+        p={"0"}
+        bgImg={"/fondoCancha.jpeg"}
+        bgRepeat={"no-repeat"}
+        bgPosition={"center"}
+        bgSize={"cover"}
+        width={"100%"}
+        height={"container.lg"}
       >
-        <Box
-          width="100%"
-          backgroundImage={
-            " linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.40)), url(./background.png)"
-          }
-          backgroundPosition="center"
-          backgroundRepeat="no-repeat"
-          backgroundSize="cover"
-          backgroundColor="rgba(0, 0, 0, 0.25)"
-          sx={{
-            "@media screen and (max-width: 855px)": {
-              pt: "20px",
-              width: "900px!important",
-              height: "1200px",
-            },
-          }}
+        <Heading
+          my={"30px"}
+          p={"15px"}
+          color={"whiteAlpha.800"}
+          backgroundColor={"blackAlpha.100"}
+          bold="true"
         >
-          <Flex
-            flexWrap="wrap"
-            justifyContent="center"
-            alignItems="center"
-            h="100vh"
-          >
-            <Box bg="white">
-              {cargando ? "cargando..." : JSON.stringify(reservas)}
-            </Box>
-          </Flex>
-        </Box>
-      </Box>
+          VERIFICA DISPONIBILIDAD PARA TU DEPORTE FAVORITO ⚽🥎🏀🏐🏸🔥
+        </Heading>
+        <VStack spacing={"30px"} my={"25px"}>
+          <form onSubmit={handleSubmit}>
+            <FormControl>
+              <HStack backgroundColor={"whiteAlpha.100"}>
+                <FormLabel color={"whiteAlpha.800"}>
+                  ¿Que deporte quieres hacer?
+                </FormLabel>
+                <Select
+                  id="category"
+                  name="category"
+                  variant="filled"
+                  placeholder="Elige el deporte"
+                  onChange={onChange}
+                >
+                  {categories.map((category) => (
+                    <option key={category.id} value={category.id}>
+                      {category.name}
+                    </option>
+                  ))}
+                </Select>
+              </HStack>
+              <Spacer height={"10px"} />
+              <HStack backgroundColor={"blackAlpha.100"}>
+                <FormLabel color={"whiteAlpha.800"}>Elige la fecha</FormLabel>
+                <Input
+                  id="date"
+                  name="date"
+                  type="date"
+                  color={"whiteAlpha.800"}
+                  placeholder="dd-mm-yy"
+                  size="md"
+                  onChange={onChange}
+                />
+              </HStack>
+              <Button type="submit" mt={4} colorScheme="teal">
+                Buscar
+              </Button>
+            </FormControl>
+          </form>
+        </VStack>
+      </VStack>
     </HomeLayout>
   );
 }
