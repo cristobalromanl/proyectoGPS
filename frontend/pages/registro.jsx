@@ -1,4 +1,5 @@
 import {
+  Alert,
   Box,
   Input,
   Button,
@@ -36,14 +37,13 @@ const REGIONES = {
 
 export default function RegisterPage() {
   const router = useRouter();
-  const { isAuthenticated, register } = useAuth();
+  const { isAuthenticated, register, login } = useAuth();
   const [user, setUser] = useState({
     email: "",
-    fullName: "",
     firstName: "",
     lastName: "",
     password: "",
-    region: "",
+    regionKey: "",
     city: "",
     phone: "",
     error: false,
@@ -70,7 +70,10 @@ export default function RegisterPage() {
       await register({
         ...user,
         fullName: `${user.firstName} ${user.lastName}`,
+        region: REGIONES[user.regionKey],
       });
+
+      await login(user.email, user.password);
 
       router.push("/home");
     } catch (error) {
@@ -83,7 +86,7 @@ export default function RegisterPage() {
         region: "",
         city: "",
         phone: "",
-        error: false,
+        error: true,
       });
     }
   };
@@ -128,6 +131,12 @@ export default function RegisterPage() {
               Registro usuario
             </Heading>
 
+            {user.error && (
+              <Alert my={4} status="error">
+                Credenciales incorrectas
+              </Alert>
+            )}
+
             <form onSubmit={handleSubmit}>
               <Box
                 bg="#f6f2f2"
@@ -166,6 +175,7 @@ export default function RegisterPage() {
                         _hover={{
                           borderColor: "gray.600",
                         }}
+                        value={user.firstName}
                         onChange={handleChange}
                       />
                     </Stack>{" "}
@@ -189,6 +199,7 @@ export default function RegisterPage() {
                         _hover={{
                           borderColor: "gray.600",
                         }}
+                        value={user.lastName}
                         onChange={handleChange}
                       />
                     </Stack>
@@ -219,6 +230,7 @@ export default function RegisterPage() {
                         _hover={{
                           borderColor: "gray.600",
                         }}
+                        value={user.password}
                         onChange={handleChange}
                       />
                     </Stack>{" "}
@@ -283,6 +295,7 @@ export default function RegisterPage() {
                         _hover={{
                           borderColor: "gray.600",
                         }}
+                        value={user.email}
                         onChange={handleChange}
                       />
                     </Stack>{" "}
@@ -306,6 +319,7 @@ export default function RegisterPage() {
                         _hover={{
                           borderColor: "gray.600",
                         }}
+                        value={user.phone}
                         onChange={handleChange}
                       />
                     </Stack>
@@ -325,8 +339,8 @@ export default function RegisterPage() {
                       <FormLabel>Región</FormLabel>
 
                       <Select
-                        id="region"
-                        name="region"
+                        id="regionKey"
+                        name="regionKey"
                         type="text"
                         placeholder="Selecciona Región"
                         mt={4}
@@ -336,6 +350,7 @@ export default function RegisterPage() {
                         _hover={{
                           borderColor: "gray.600",
                         }}
+                        value={user.regionKey}
                         onChange={handleChange}
                       >
                         {Object.keys(REGIONES).map((key) => (
@@ -365,6 +380,7 @@ export default function RegisterPage() {
                         _hover={{
                           borderColor: "gray.600",
                         }}
+                        value={user.city}
                         onChange={handleChange}
                       />
                     </Stack>
