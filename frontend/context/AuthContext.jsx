@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { signIn, signOut, verifyAuth } from "../services/auth";
+import { signUp, signIn, signOut, verifyAuth } from "../services/auth";
 
 export const AuthContext = createContext();
 
@@ -17,6 +17,14 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
+
+  const register = async (user) => {
+    try {
+      await signUp(user);
+    } catch (error) {
+      throw new Error("Error al registrarse");
+    }
+  };
 
   const login = async (email, password) => {
     try {
@@ -59,6 +67,7 @@ export const AuthProvider = ({ children }) => {
         user,
         isAuthenticated,
         loading,
+        register,
         login,
         logout,
       }}
