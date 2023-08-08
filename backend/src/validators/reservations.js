@@ -6,6 +6,7 @@ export const validateCreate = [
     .isISO8601()
     .toDate(),
   body('endDate', 'La fecha de término tiene el formato incorrecto')
+    .optional()
     .isISO8601()
     .toDate(),
   body('isConfirmed', 'El estado de confirmación debe ser \'true\' o \'false\'')
