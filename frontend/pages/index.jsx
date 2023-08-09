@@ -1,21 +1,253 @@
-import Head from 'next/head'
-import { Box } from '@chakra-ui/react'
-import { Stack } from '@chakra-ui/react'
+import React from "react";
+import {
+  Box,
+  Flex,
+  Spacer,
+  Text,
+  Image,
+  Button,
+  useColorModeValue,
+  Link,
+  Container,
+  Slider,
+  SliderTrack,
+  SliderFilledTrack,
+  SliderThumb,
+  Heading,
+  Divider,
+  Stack,
+} from "@chakra-ui/react";
+import {
+  FaPhoneAlt,
+  FaInstagram,
+  FaYoutube,
+  FaFacebook,
+  FaFacebookF,
+} from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
 
+const Navbar = () => {
+  const navBg = useColorModeValue("myColor.Eminence", "myColor.Eminence");
+  const linkColor = useColorModeValue("myColor.Snow", "myColor.Snow");
+  const singIColor = useColorModeValue("myColor.Aqua", "myColor.Aqua");
 
-export default function Home() {
   return (
-    <>
-      <Head>
-        <title>Sportify</title>
-        <meta name="description" content="Reserva de Canchas" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-        <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/fifa-welcome" />
-      </Head>
-      <Box bg='black' w='100vw' h='100vh' p={4} color='white'>
-        Sportify
+    <Box>
+      {/* Header */}
+      <Box px={36} py={2} bg={navBg}>
+        <Flex alignItems="center">
+          <Link href="/">
+            <Image
+              src="/Sportify.png"
+              alt="logo"
+              width="100px"
+              height="100px"
+              borderRadius="full"
+              objectFit="cover"
+            ></Image>
+          </Link>
+          <Spacer />
+          <Box display={{ base: "none", md: "flex" }}>
+            {" "}
+            <NavItems linkColor={linkColor} />
+          </Box>
+          <Box ml={4}>
+            <Link href="/login">
+              <Button
+                bg={singIColor}
+                colorScheme="myColor.Aqua"
+                borderRadius={"12px"}
+                _hover={{
+                  cursor: "pointer",
+                  fontSize: "xl",
+                }}
+              >
+                Iniciar Sesión
+              </Button>
+            </Link>
+          </Box>
+        </Flex>
       </Box>
-    </>
-  )
-}
+      {/* Banner */}
+      <Flex
+        height={"90vh"}
+        width={"100wh"}
+        display="flex"
+        p={40}
+        backgroundImage={"url(./background-v2.png)"}
+        backgroundPosition="center"
+        backgroundRepeat="no-repeat"
+        backgroundSize="cover"
+      >
+        <Box width={"50%"} alignItems="center">
+          <Heading fontSize="6xl" pt={20}>
+            Sé parte de la nueva <br />
+            experiencia competitiva
+          </Heading>
+          <Heading
+            fontSize="4xl"
+            mt={8}
+            mb={4}
+            fontFamily={"FIFA Welcome"}
+            fontWeight={"normal"}
+          >
+            Juega y disfruta con amigos
+          </Heading>
+          <Text fontSize="2xl" mb={8}>
+            ¡Regístrate ahora y reserva tu cancha favorita en solo unos clics!
+          </Text>
+          <Link href="/registro">
+            <Button
+              bg="myColor.Eminence"
+              color="myColor.Snow"
+              fontSize="2xl"
+              fontWeight="sm"
+              p={"26px"}
+              borderRadius={"12px"}
+              _hover={{ bg: "myColor.Aqua" }}
+            >
+              Registrate
+            </Button>
+          </Link>
+        </Box>
+        <Box
+          boxSize="xl"
+          width={"50%"}
+          alignItems="center"
+          justifyContent="center"
+        >
+          <Image src="/main-1.png" borderRadius={"md"} />
+        </Box>
+      </Flex>
+      {/* Footer */}
+      <Flex
+        height="240px"
+        bg="myColor.Eminence"
+        fontSize="2xl"
+        color="#ffffff"
+        fontFamily="Inter"
+      >
+        <Stack
+          direction="column" // Stacks the elements vertically
+          width="33%"
+          alignItems="center"
+          justifyContent="center"
+          fontSize="lg"
+          spacing={2} // Adds spacing between the stacked elements
+        >
+          {" "}
+          <Text>Enlaces</Text>
+          <Divider orientation="horizontal" width="200px" borderWidth={1} />
+          <Text
+            _hover={{
+              cursor: "pointer",
+              fontSize: "xl",
+            }}
+          >
+            Servicios
+          </Text>
+          <Text
+            _hover={{
+              cursor: "pointer",
+              fontSize: "xl",
+            }}
+          >
+            Contacto
+          </Text>
+          <Text
+            _hover={{
+              cursor: "pointer",
+              fontSize: "xl",
+            }}
+          >
+            FAQ
+          </Text>
+        </Stack>
+        <Stack
+          direction="column"
+          width="33%"
+          alignItems="center"
+          justifyContent="center"
+          fontSize="lg"
+          spacing={2}
+        >
+          <Text>Datos de contacto</Text>
+          <Divider orientation="horizontal" width="200px" borderWidth={1} />
+          <Stack direction="row" align="center">
+            <FaPhoneAlt />
+            <Text>+569 8765 4321</Text>
+          </Stack>
+          <Stack direction="row" align="center">
+            <MdEmail />
+            <Text>contacto@sportify.cl</Text>
+          </Stack>
+        </Stack>
+        <Stack
+          direction="column"
+          width="33%"
+          alignItems="center"
+          justifyContent="center"
+          fontSize="lg"
+          spacing={2}
+        >
+          <Text>Redes sociales</Text>
+          <Divider orientation="horizontal" width="200px" borderWidth={1} />
+          <Stack direction="row" align="center">
+            <FaInstagram /> <FaYoutube /> <FaFacebookF />
+          </Stack>
+        </Stack>
+      </Flex>
+    </Box>
+  );
+};
+
+// Navbar
+const NavItems = ({ linkColor }) => {
+  return (
+    <Flex alignItems="center">
+      <Link
+        href="/conocenos"
+        mr={4}
+        fontWeight="normal"
+        fontSize="2xl"
+        color={linkColor}
+        _hover={{
+          textDecoration: "none",
+          color: "myColor.Aqua",
+          fontSize: "3xl",
+        }}
+      >
+        Conócenos
+      </Link>
+      <Link
+        href="/recintos"
+        mr={4}
+        fontWeight="normal"
+        fontSize="2xl"
+        color={linkColor}
+        _hover={{
+          textDecoration: "none",
+          color: "myColor.Aqua",
+          fontSize: "3xl",
+        }}
+      >
+        Recintos
+      </Link>
+      <Link
+        href="/faq"
+        fontWeight="normal"
+        fontSize="2xl"
+        color={linkColor}
+        _hover={{
+          textDecoration: "none",
+          color: "myColor.Aqua",
+          fontSize: "3xl",
+        }}
+      >
+        FAQ
+      </Link>
+    </Flex>
+  );
+};
+
+export default Navbar;
