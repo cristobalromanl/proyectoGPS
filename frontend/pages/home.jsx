@@ -1,7 +1,6 @@
 import { Box, Flex, Wrap, WrapItem, Center } from "@chakra-ui/react";
 import NextLink from "next/link";
 import HomeLayout from "@/components/HomeLayout";
-
 export default function MenuPage() {
   return (
     <HomeLayout>
@@ -90,27 +89,28 @@ export default function MenuPage() {
               </WrapItem>
 
               <Wrap spacing="10px" justify="center">
-                <WrapItem>
-                  <Center
-                    bg={`url("./Insumos.png")`}
-                    backgroundSize="cover"
-                    backgroundPosition="center"
-                    borderRadius={3}
-                    w={300}
-                    h={202}
-                    _hover={{
-                      border: "2px solid #05f3ff",
-                      cursor: "pointer",
-                      opacity: 0.95,
-                    }}
-                    sx={{
-                      "@media screen and (max-width: 455px)": {
-                        width: "410px!important",
-                      },
-                    }}
-                  ></Center>
-                </WrapItem>
-
+                <NextLink href="/productos">
+                  <WrapItem>
+                    <Center
+                      bg={`url("./Insumos.png")`}
+                      backgroundSize="cover"
+                      backgroundPosition="center"
+                      borderRadius={3}
+                      w={300}
+                      h={202}
+                      _hover={{
+                        border: "2px solid #05f3ff",
+                        cursor: "pointer",
+                        opacity: 0.95,
+                      }}
+                      sx={{
+                        "@media screen and (max-width: 455px)": {
+                          width: "410px!important",
+                        },
+                      }}
+                    ></Center>
+                  </WrapItem>
+                </NextLink>
                 <WrapItem>
                   <Center
                     bg={`url("./Clubes.png")`}
