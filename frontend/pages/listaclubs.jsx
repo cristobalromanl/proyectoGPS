@@ -20,48 +20,56 @@ const overviewList = [
     label: "Equipo Lince",
     logo: "/logosequipos/team1.png",
     registeredAt:"10-08-2023",
+    sportType: "Fútbol"
   },
   {
     id: 2,
     label: "Equipo Dragon",
     logo: "/logosequipos/team2.png",
     registeredAt:"12-07-2023",
+    sportType: "Fútbol"
   },
   {
     id: 3,
     label: "Equipo Bicho",
     logo: "/logosequipos/team3.png",
     registeredAt:"10-09-2023",
+    sportType: "Padel"
   },
   {
     id: 4,
     label: "Equipo L",
     logo: "/logosequipos/team4.png",
     registeredAt:"22-09-2023",
+    sportType: "Tenis"
   },
   {
     id: 5,
     label: "Equipo Partisano",
     logo: "/logosequipos/team5.png",
     registeredAt:"15-08-2023",
+    sportType: "Padel"
   },
   {
     id: 6,
     label: "Equipo Yuste",
     logo: "/logosequipos/team6.png",
     registeredAt:"01-09-2023",
+    sportType: "Tenis"
   },
   {
     id: 7,
     label: "Equipo MMJ",
     logo: "/logosequipos/team7.png",
     registeredAt:"23-07-2023",
+    sportType: "Fútbol"
   },
   {
     id: 8,
     label: "Equipo Kiku",
     logo: "/logosequipos/team8.png",
     registeredAt:"31-07-2023",
+    sportType: "Padel"
   },
 ];
 
@@ -90,7 +98,7 @@ export default function ReservasPage() {
     const filterText = filter.toLowerCase(); // Convertir el filtro a minúsculas
     return (
       team.label.toLowerCase().includes(filterText) ||
-      team.registeredAt.includes(filterText)
+      team.registeredAt.includes(filterText) || team.sportType.toLowerCase().includes(filterText)
     );
   });
 
@@ -114,16 +122,18 @@ export default function ReservasPage() {
               <Th>Equipo</Th>
               <Th>Logo</Th>
               <Th>Fecha de Creación</Th>
+              <Th>Tipo de Deporte</Th>
             </Tr>
           </Thead>
           <Tbody>
-            {filteredTeams.map((team) => (
+            {filteredTeams.map((team) => (      //Mostrar los datos en la tabla
               <Tr key={team.id}>
                 <Td>{team.label}</Td>
                 <Td>
                   <Image src={team.logo} alt={`${team.label} Logo`} height="50px" width="50px" />
                 </Td>
                 <Td>{team.registeredAt}</Td>
+                <Td>{team.sportType}</Td>
               </Tr>
             ))}
           </Tbody>
