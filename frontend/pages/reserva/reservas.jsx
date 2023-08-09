@@ -16,11 +16,13 @@ import {
   Container,
   HStack,
   Text,
+  useToast,
   Input,
 } from "@chakra-ui/react";
 import { useState } from "react";
 
 const reservas = () => {
+  const toast = useToast();
   const [values, setvalues] = useState({
     deporte: "",
     fecha: "",
@@ -35,7 +37,14 @@ const reservas = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const { deporte, fecha } = values;
-    alert(values);
+    console.log(deporte);
+    if (deporte == "") {
+      alert("porfavor elija el deporte");
+    }
+    if (fecha == "") {
+      alert("porfavor elija una fecha");
+    }
+
     console.log(values);
     router.push({
       pathname: `./cancha/${values}`,
@@ -117,6 +126,7 @@ const reservas = () => {
             <HStack backgroundColor={"blackAlpha.100"}>
               <FormLabel color={"whiteAlpha.800"}>Elige la fecha</FormLabel>
               <Input
+                min={"2023-08-07"}
                 color={"whiteAlpha.800"}
                 name={"fecha"}
                 placeholder="dd-mm-yy"
