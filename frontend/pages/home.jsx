@@ -53,20 +53,22 @@ export default function MenuPage() {
                     ></Center>
                   </WrapItem>
                 </NextLink>
-                <WrapItem>
-                  <Center
-                    bg={`url("./Match.png")`}
-                    backgroundSize="cover"
-                    borderRadius={3}
-                    w={615}
-                    h={210}
-                    _hover={{
-                      border: "2px solid #05f3ff",
-                      cursor: "pointer",
-                      opacity: 0.95,
-                    }}
-                  ></Center>
-                </WrapItem>
+                <NextLink href="/match">
+                  <WrapItem>
+                    <Center
+                      bg={`url("./Match.png")`}
+                      backgroundSize="cover"
+                      borderRadius={3}
+                      w={615}
+                      h={210}
+                      _hover={{
+                        border: "2px solid #05f3ff",
+                        cursor: "pointer",
+                        opacity: 0.95,
+                      }}
+                    ></Center>
+                  </WrapItem>
+                </NextLink>
               </Wrap>
               <WrapItem>
                 <Center

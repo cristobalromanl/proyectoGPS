@@ -9,6 +9,7 @@ import {
   HStack,
   Input,
   useToast,
+  Switch,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
@@ -22,6 +23,7 @@ export default function ReservasPage() {
   const [values, setValues] = useState({
     category: "",
     date: "",
+    match: false,
   });
 
   const onChange = (e) => {
@@ -102,6 +104,18 @@ export default function ReservasPage() {
                   placeholder="dd-mm-yy"
                   size="md"
                   onChange={onChange}
+                />
+              </HStack>
+              <Spacer height={"10px"} />
+              <HStack backgroundColor={"blackAlpha.100"}>
+                <FormLabel color={"whiteAlpha.800"}>¿Buscas match?</FormLabel>
+                <Switch
+                  id="match"
+                  name="match"
+                  isChecked={values.match}
+                  onChange={() =>
+                    setValues({ ...values, match: !values.match })
+                  }
                 />
               </HStack>
               <Button type="submit" mt={4} colorScheme="teal">
