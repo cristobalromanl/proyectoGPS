@@ -6,12 +6,12 @@ import { createField, deleteField, getField, getFields, updateField } from '../c
 const router = Router()
 
 router.route('/')
-  .get(checkAuth, permit('CUSTOMER', 'ADMIN'), getFields)
-  .post(checkAuth, permit('CUSTOMER', 'ADMIN'), validateCreate, createField)
+  .get(checkAuth, getFields)
+  .post(checkAuth, permit('ADMIN'), validateCreate, createField)
 
 router.route('/:id')
-  .get(checkAuth, permit('CUSTOMER', 'ADMIN'), getField)
-  .put(checkAuth, permit('CUSTOMER', 'ADMIN'), validateUpdate, updateField)
-  .delete(checkAuth, permit('CUSTOMER', 'ADMIN'), deleteField)
+  .get(checkAuth, getField)
+  .put(checkAuth, permit('ADMIN'), validateUpdate, updateField)
+  .delete(checkAuth, permit('ADMIN'), deleteField)
 
 export default router

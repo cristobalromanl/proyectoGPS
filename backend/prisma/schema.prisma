@@ -29,10 +29,13 @@ model Reservation {
   startDate   DateTime
   endDate     DateTime?
   isConfirmed Boolean                    @default(false)
+  match       Boolean                    @default(false)
   user        User                       @relation(fields: [userId], references: [id])
   userId      Int
   field       Field                      @relation(fields: [fieldId], references: [id])
   fieldId     Int
+  clubMatch   Club?                      @relation(fields: [clubMatchId], references: [id])
+  clubMatchId Int?
   equipments  EquipmentsOnReservations[]
 }
 
@@ -84,16 +87,16 @@ model Category {
 }
 
 model Club {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  name      String
-  logoPath  String?
-  users     User[]
+  id                Int           @id @default(autoincrement())
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+  name              String
+  logoPath          String?
+  users             User[]
+  matchReservations Reservation[]
 }
 
 enum Role {
   USER
-  CUSTOMER
   ADMIN
 }
