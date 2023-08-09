@@ -111,21 +111,15 @@ export default function CanchasPage() {
     setAbrirModal(true);
   };
 
-  const getColumnForHora = (fecha, hora) => ({
+  const getColumnForHora = (hora) => ({
     name: hora,
     center: true,
     cell: (row) => {
       const { reservations } = row;
       const reserva = reservations.find((reserva) => {
         const fechaReserva = new Date(reserva.startDate);
-        const fechaSeleccionada = new Date(fecha);
 
-        return (
-          fechaReserva.getFullYear() === fechaSeleccionada.getFullYear() &&
-          fechaReserva.getMonth() === fechaSeleccionada.getMonth() &&
-          fechaReserva.getDate() === fechaSeleccionada.getDate() + 1 &&
-          fechaReserva.getHours() === parseInt(hora.split(":")[0])
-        );
+        return fechaReserva.getHours() === parseInt(hora.split(":")[0]);
       });
 
       if (reserva && reserva.isConfirmed) {
@@ -162,7 +156,7 @@ export default function CanchasPage() {
     { name: "Cancha", selector: "name", sortable: true },
     { name: "Deporte", selector: () => category?.name },
     //  columnas para cada hora predefinida
-    ...HORARIOS.map((hora) => getColumnForHora(fecha, hora)),
+    ...HORARIOS.map((hora) => getColumnForHora(hora)),
   ];
 
   return (
