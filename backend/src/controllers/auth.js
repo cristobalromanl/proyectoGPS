@@ -34,7 +34,10 @@ export const signIn = async (req, res) => {
   try {
     const { email, password } = req.body
 
-    const user = await db.user.findFirst({ where: { email } })
+    const user = await db.user.findFirst({
+      where: { email },
+      include: { club: true }
+    })
     if (!user) {
       return res.status(404).json({
         message: 'El usuario no existe'
@@ -53,7 +56,7 @@ export const signIn = async (req, res) => {
     return res.json({
       message: 'El usuario ha iniciado sesión correctamente',
       user: {
-        id: user.id, email: user.email, fullName: user.fullName, role: user.role
+        id: user.id, email: user.email, fullName: user.fullName, role: user.role, club: user.club
       },
       token
     })
@@ -79,13 +82,16 @@ export const verifyAuth = async (req, res) => {
 
     const { uid } = verifyToken(token)
 
-    const user = await db.user.findFirst({ where: { id: uid } })
+    const user = await db.user.findFirst({
+      where: { id: uid },
+      include: { club: true }
+    })
     if (!user) throw new Error()
 
     return res.json({
       message: 'El usuario esta autenticado',
       user: {
-        id: user.id, email: user.email, fullName: user.fullName, role: user.role
+        id: user.id, email: user.email, fullName: user.fullName, role: user.role, club: user.club
       }
     })
   } catch (error) {

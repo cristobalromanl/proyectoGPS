@@ -3,6 +3,7 @@ import dotenv from 'dotenv'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import authRoutes from './routes/auth.js'
+import userRoutes from './routes/users.js'
 import imageRoutes from './routes/images.js'
 import clubRoutes from './routes/clubs.js'
 import categoryRoutes from './routes/categories.js'
@@ -26,6 +27,7 @@ app.use(express.json())
 app.use(express.static('public'))
 
 app.use('/api/auth', authRoutes)
+app.use('/api/users', userRoutes)
 app.use('/api/images', imageRoutes)
 app.use('/api/clubs', clubRoutes)
 app.use('/api/categories', categoryRoutes)

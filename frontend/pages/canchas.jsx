@@ -33,9 +33,12 @@ export default function CanchasPage() {
   const [abrirModalOcupado, setAbrirModalOcupado] = useState(false);
   const [horaSeleccionada, setHoraSeleccionada] = useState(null);
   const [canchaSeleccionada, setCanchaSeleccionada] = useState(null);
+  const [buscaMatch, setBuscaMatch] = useState(false);
 
   useEffect(() => {
     if (router.isReady) {
+      setBuscaMatch(router.query.match === "true");
+
       getCategory(categoriaSeleccionada)
         .then((category) => setCategory(category))
         .catch((_error) => {
@@ -86,7 +89,8 @@ export default function CanchasPage() {
         startDate: new Date(`${fecha} ${horaSeleccionada}`),
         userId: user.id,
         fieldId: canchaSeleccionada.id,
-        isConfirmed: true,
+        isConfirmed: !buscaMatch,
+        match: buscaMatch,
       });
 
       toast({

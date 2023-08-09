@@ -8,7 +8,8 @@ export const getClubs = async (_req, res) => {
       include: {
         users: {
           select: { id: true, registeredAt: true, email: true, fullName: true, phone: true }
-        }
+        },
+        matchReservations: true
       }
     })
 
@@ -35,7 +36,8 @@ export const createClub = async (req, res) => {
       include: {
         users: {
           select: { id: true, registeredAt: true, email: true, fullName: true, phone: true }
-        }
+        },
+        matchReservations: true
       }
     })
 
@@ -59,7 +61,8 @@ export const getClub = async (req, res) => {
       include: {
         users: {
           select: { id: true, registeredAt: true, email: true, fullName: true, phone: true }
-        }
+        },
+        matchReservations: true
       }
     })
 
@@ -94,7 +97,8 @@ export const updateClub = async (req, res) => {
       include: {
         users: {
           select: { id: true, registeredAt: true, email: true, fullName: true, phone: true }
-        }
+        },
+        matchReservations: true
       }
     })
 
