@@ -1,6 +1,7 @@
 import { extendTheme } from '@chakra-ui/react'
 import { mode } from '@chakra-ui/theme-tools'
 
+
 export default extendTheme({
   initialColorMode: 'system',
   useSystemColorMode: true,
@@ -27,6 +28,7 @@ export default extendTheme({
       '::-webkit-scrollbar-thumb:hover': {
         background: mode('gray.500', 'gray.500')(props)
       },
+      
     })
   }
 })

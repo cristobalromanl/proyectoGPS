@@ -13,7 +13,7 @@ export default function Document() {
         <Main />
         
         
-        {/* <Image width="100%" src='/fondoCancha.jpeg' objectFit="cover"></Image> */}
+        { }
         
       
         <NextScript />
