@@ -8,12 +8,12 @@ import {
 const router = Router()
 
 router.route('/')
-  .get(checkAuth, permit('CUSTOMER', 'ADMIN'), getEquipments)
-  .post(checkAuth, permit('CUSTOMER', 'ADMIN'), validateCreate, createEquipment)
+  .get(checkAuth, getEquipments)
+  .post(checkAuth, permit('ADMIN'), validateCreate, createEquipment)
 
 router.route('/:id')
-  .get(checkAuth, permit('CUSTOMER', 'ADMIN'), getEquipment)
-  .put(checkAuth, permit('CUSTOMER', 'ADMIN'), validateUpdate, updateEquipment)
-  .delete(checkAuth, permit('CUSTOMER', 'ADMIN'), deleteEquipment)
+  .get(checkAuth, getEquipment)
+  .put(checkAuth, permit('ADMIN'), validateUpdate, updateEquipment)
+  .delete(checkAuth, permit('ADMIN'), deleteEquipment)
 
 export default router

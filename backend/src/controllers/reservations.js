@@ -6,7 +6,8 @@ export const getReservations = async (_req, res) => {
       include: {
         field: true,
         equipments: true,
-        user: { select: { id: true, registeredAt: true, email: true, fullName: true, phone: true } }
+        clubMatch: true,
+        user: { select: { id: true, registeredAt: true, email: true, fullName: true, phone: true, club: true } }
       }
     })
 
@@ -20,7 +21,7 @@ export const getReservations = async (_req, res) => {
 
 export const createReservation = async (req, res) => {
   try {
-    const { startDate, endDate, isConfirmed, userId, fieldId, equipments } = req.body
+    const { startDate, endDate, isConfirmed, match, userId, fieldId, clubMatchId, equipments } = req.body
 
     const user = await db.user.findUnique({ where: { id: userId } })
     if (!user) {
@@ -36,11 +37,22 @@ export const createReservation = async (req, res) => {
       })
     }
 
+    if (clubMatchId) {
+      const clubMatch = await db.club.findUnique({ where: { id: clubMatchId } })
+
+      if (!clubMatch) {
+        return res.status(404).json({
+          message: 'El club no existe'
+        })
+      }
+    }
+
     const reservation = await db.reservation.create({
-      data: { startDate, endDate, isConfirmed, userId, fieldId, equipments: { create: equipments } },
+      data: { startDate, endDate, isConfirmed, match, userId, fieldId, clubMatchId, equipments: { create: equipments } },
       include: {
         field: true,
         equipments: true,
+        clubMatch: true,
         user: { select: { id: true, registeredAt: true, email: true, fullName: true, phone: true } }
       }
     })
@@ -65,7 +77,8 @@ export const getReservation = async (req, res) => {
       include: {
         field: true,
         equipments: true,
-        user: { select: { id: true, registeredAt: true, email: true, fullName: true, phone: true } }
+        clubMatch: true,
+        user: { select: { id: true, registeredAt: true, email: true, fullName: true, phone: true, club: true } }
       }
     })
 
@@ -86,20 +99,34 @@ export const getReservation = async (req, res) => {
 export const updateReservation = async (req, res) => {
   try {
     const id = parseInt(req.params.id)
-    const { startDate, endDate, isConfirmed, userId, fieldId, equipments } = req.body
+    const { startDate, endDate, isConfirmed, match, userId, fieldId, clubMatchId, equipments } = req.body
 
-    const user = await db.user.findUnique({ where: { id: userId } })
-    if (!user) {
-      return res.status(404).json({
-        message: 'El usuario no existe'
-      })
+    if (userId) {
+      const user = await db.user.findUnique({ where: { id: userId } })
+      if (!user) {
+        return res.status(404).json({
+          message: 'El usuario no existe'
+        })
+      }
     }
 
-    const field = await db.field.findUnique({ where: { id: fieldId } })
-    if (!field) {
-      return res.status(404).json({
-        message: 'La cancha no existe'
-      })
+    if (fieldId) {
+      const field = await db.field.findUnique({ where: { id: fieldId } })
+      if (!field) {
+        return res.status(404).json({
+          message: 'La cancha no existe'
+        })
+      }
+    }
+
+    if (clubMatchId) {
+      const clubMatch = await db.club.findUnique({ where: { id: clubMatchId } })
+
+      if (!clubMatch) {
+        return res.status(404).json({
+          message: 'El club no existe'
+        })
+      }
     }
 
     const equipmentsFound = await db.equipment.findMany({
@@ -117,10 +144,11 @@ export const updateReservation = async (req, res) => {
 
     const reservation = await db.reservation.update({
       where: { id },
-      data: { startDate, endDate, isConfirmed, userId, fieldId, equipments: { create: equipments } },
+      data: { startDate, endDate, isConfirmed, match, userId, fieldId, clubMatchId, equipments: { create: equipments } },
       include: {
         field: true,
         equipments: true,
+        clubMatch: true,
         user: { select: { id: true, registeredAt: true, email: true, fullName: true, phone: true } }
       }
     })
