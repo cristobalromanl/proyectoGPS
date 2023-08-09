@@ -275,7 +275,6 @@ const columnas = [
       >
         <Heading color={'white'} my={'30px'} p={'15px'} fontFamily={"Poppins , sans-serif"} >Elige tu cancha <Icon as={GiTennisCourt} />  </Heading>
         <VStack >
-
         <DataTable  
 
            columns={columnas}  

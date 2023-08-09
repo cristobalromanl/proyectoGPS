@@ -14,16 +14,20 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { getAll } from "@/services/categories";
 import HomeLayout from "@/components/HomeLayout";
+import { getEquipament } from "@/services/equipament";
 
 export default function ReservasPage() {
+  const toast = useToast();
   const router = useRouter();
   const toast = useToast();
   const [categories, setCategories] = useState([]);
+  const [productos, setProductos] = useState([]);
   const [values, setValues] = useState({
     category: "",
     date: "",
   });
-
+  const fecha = new Date();
+  const fechaActual = fecha.toISOString().slice(0, 10);
   const onChange = (e) => {
     setValues({
       ...values,
@@ -33,11 +37,26 @@ export default function ReservasPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    if (values.category == "" || values.date == "") {
+      return toast({
+        title: "los campos no pueden estar vacios",
+        status: "error",
+        isClosable: true,
+      });
+    }
     router.push({ pathname: "/canchas", query: values });
   };
 
   useEffect(() => {
+    getEquipament()
+      .then((insumos) => setProductos(insumos))
+      .catch((_error) =>
+        toast({
+          title: "Error al obtener los productos. Intentelo más tarde.",
+          status: "error",
+          isClosable: true,
+        })
+      );
     getAll()
       .then((categorias) => setCategories(categorias))
       .catch((_error) =>
@@ -95,6 +114,7 @@ export default function ReservasPage() {
               <HStack backgroundColor={"blackAlpha.100"}>
                 <FormLabel color={"whiteAlpha.800"}>Elige la fecha</FormLabel>
                 <Input
+                  min={fechaActual}
                   id="date"
                   name="date"
                   type="date"

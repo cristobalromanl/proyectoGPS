@@ -31,6 +31,8 @@ model Reservation {
   isConfirmed Boolean                    @default(false)
   user        User                       @relation(fields: [userId], references: [id])
   userId      Int
+  buscaMatch  Boolean
+  teamName    
   field       Field                      @relation(fields: [fieldId], references: [id])
   fieldId     Int
   equipments  EquipmentsOnReservations[]
