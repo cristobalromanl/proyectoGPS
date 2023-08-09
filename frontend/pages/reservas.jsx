@@ -14,13 +14,12 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { getAll } from "@/services/categories";
 import HomeLayout from "@/components/HomeLayout";
-import { getEquipament } from "@/services/equipament";
+import { getEquipments } from "@/services/equipments";
 
 export default function ReservasPage() {
   const toast = useToast();
   const router = useRouter();
   const [categories, setCategories] = useState([]);
-  const [productos, setProductos] = useState([]);
   const [values, setValues] = useState({
     category: "",
     date: "",
@@ -47,15 +46,6 @@ export default function ReservasPage() {
   };
 
   useEffect(() => {
-    getEquipament()
-      .then((insumos) => setProductos(insumos))
-      .catch((_error) =>
-        toast({
-          title: "Error al obtener los productos. Intentelo más tarde.",
-          status: "error",
-          isClosable: true,
-        })
-      );
     getAll()
       .then((categorias) => setCategories(categorias))
       .catch((_error) =>

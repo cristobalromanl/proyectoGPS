@@ -15,21 +15,26 @@ import {
 import { FiShoppingCart } from "react-icons/fi";
 import { getAll } from "@/services/categories";
 import HomeLayout from "@/components/HomeLayout";
-import { getEquipament } from "@/services/equipament";
+import { getEquipments, updateEquipment } from "@/services/equipments";
 
-export default function Productos() {
+export default function ReservasPage() {
   const toast = useToast();
   const [categories, setCategories] = useState([]);
   const [cart, setCart] = useState([]);
   const [productos, setProductos] = useState([]);
+  const [stock, setstock] = useState([]);
+
   const [values, setValues] = useState({
     category: "",
     date: "",
   });
 
   useEffect(() => {
-    getEquipament()
-      .then((insumos) => setProductos(insumos))
+    getEquipments()
+      .then((insumos) => {
+        setProductos(insumos);
+        setstock(insumos);
+      })
       .catch((_error) =>
         toast({
           title: "Error al obtener los productos. Intentelo más tarde.",
@@ -42,7 +47,7 @@ export default function Productos() {
       .then((categorias) => setCategories(categorias))
       .catch((_error) =>
         toast({
-          title: "Error al obtener los datos. Intentelo más tarde.",
+          title: "Categoría seleccionada no existe.",
           status: "error",
           isClosable: true,
         })
@@ -52,7 +57,10 @@ export default function Productos() {
   const onChange = (e) => {
     setValues({
       ...values,
-      [e.target.name]: e.target.value,
+      [e.target.name]:
+        e.target.name === "category"
+          ? parseInt(e.target.value)
+          : e.target.value,
     });
   };
 
@@ -109,7 +117,44 @@ export default function Productos() {
       });
     }
   };
-  const handleComprar = (productos) => {};
+
+  const handleComprar = async () => {
+    try {
+      for (const producto of cart) {
+        const stockItem = stock.find((item) => item.id === producto.id);
+        const newStock = stockItem.quantity - producto.quantity;
+
+        // Nuevo stock para la base de datos
+        await updateEquipment(producto.id, newStock);
+      }
+
+      setCart([]);
+
+      const updatedProductos = await getEquipments();
+
+      // Actualiza datos de stock producots
+      setProductos(updatedProductos);
+
+      // valores nuevos stock
+      const updatedStock = stock.map((item) => {
+        const cartItem = cart.find((producto) => producto.id === item.id);
+        if (cartItem) {
+          return { ...item, quantity: item.quantity - cartItem.quantity };
+        }
+        return item;
+      });
+      setstock(updatedStock);
+
+      alert("Compra exitosa");
+    } catch (error) {
+      toast({
+        title: "Error al realizar la compra. Inténtelo de nuevo.",
+        status: "error",
+        isClosable: true,
+      });
+    }
+  };
+
   //productos xfilas
   const productosInRows = [];
   for (let i = 0; i < productos.length; i += 4) {
@@ -140,9 +185,10 @@ export default function Productos() {
             id="category"
             name="category"
             variant="filled"
-            placeholder="Elige el deporte"
+            placeholder="Todos"
             onChange={onChange}
           >
+            {" "}
             {categories.map((category) => (
               <option key={category.id} value={category.id}>
                 {category.name}
@@ -152,39 +198,40 @@ export default function Productos() {
           <Heading color="whiteAlpha.900" fontWeight="bold">
             Productos e insumos
           </Heading>
-          {productosInRows.map((row, rowIndex) => (
-            <HStack
-              key={rowIndex}
-              spacing="15px"
-              my="15px"
-              flex="1"
-              justify="center"
-            >
-              {row.map((productos) => (
-                <Box
-                  key={productos.id}
-                  backgroundColor="white"
-                  p="15px"
-                  rounded="md"
-                  shadow="md"
-                  width="250px"
-                >
-                  <VStack>
-                    <Heading size="md">
-                      {productos.name.charAt(0).toUpperCase() +
-                        productos.name.slice(1)}
-                    </Heading>
-                    <Text>Precio: ${productos.price}</Text>
-                    <Text>Stock: {productos.quantity}</Text>
-                    <Button
-                      colorScheme="teal"
-                      onClick={() => handleAñadirCarrito(productos)}
-                    >
-                      Agregar al carrito
-                    </Button>
-                  </VStack>
-                </Box>
-              ))}
+          {productosInRows.map((row) => (
+            <HStack spacing="15px" my="15px" flex="1" justify="center">
+              {row
+                .filter((productos) => {
+                  if (!values.category) {
+                    return true; // Mostrar todos los productos
+                  }
+                  return productos.categoryId === values.category; // Filtrar por la categoría seleccionada
+                })
+                .map((productos) => (
+                  <Box
+                    key={productos.id}
+                    backgroundColor="white"
+                    p="15px"
+                    rounded="md"
+                    shadow="md"
+                    width="250px"
+                  >
+                    <VStack>
+                      <Heading size="md">
+                        {productos.name.charAt(0).toUpperCase() +
+                          productos.name.slice(1)}
+                      </Heading>
+                      <Text>Precio: ${productos.price}</Text>
+                      <Text>Stock: {productos.quantity}</Text>
+                      <Button
+                        colorScheme="teal"
+                        onClick={() => handleAñadirCarrito(productos)}
+                      >
+                        Agregar al carrito
+                      </Button>
+                    </VStack>
+                  </Box>
+                ))}
             </HStack>
           ))}
           <Box
@@ -212,8 +259,12 @@ export default function Productos() {
                         width="250px"
                       >
                         <Text color="#FFFFFF">
-                          {productos.name} - ${productos.price} x{" "}
-                          {productos.quantity}
+                          {productos.name.charAt(0).toUpperCase() +
+                            productos.name.slice(1)}{" "}
+                          - ${productos.price} x {productos.quantity} Stock
+                          restante:{" "}
+                          {stock.find((item) => item.id === productos.id)
+                            .quantity - productos.quantity}
                         </Text>
                         <Button
                           colorScheme="red"
@@ -235,7 +286,15 @@ export default function Productos() {
                 <Button
                   colorScheme="green"
                   size="sm"
-                  onClick={() => handleComprar(productos)}
+                  onClick={async () => {
+                    await handleComprar();
+
+                    toast({
+                      title: "Compra exitosa.",
+                      status: "success",
+                      isClosable: true,
+                    });
+                  }}
                 >
                   Comprar
                 </Button>
