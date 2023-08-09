@@ -5,8 +5,11 @@ import { AuthProvider } from "../context/AuthContext";
 
 export default function App({ Component, pageProps }) {
   return (
-    <ChakraProvider theme={theme}>
-      <Component {...pageProps} />
-    </ChakraProvider>
-  )
+    <AuthProvider>
+      <ChakraProvider theme={theme}>
+        <Fonts />
+        <Component {...pageProps} />
+      </ChakraProvider>
+    </AuthProvider>
+  );
 }

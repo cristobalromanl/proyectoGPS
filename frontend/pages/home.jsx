@@ -68,26 +68,29 @@ export default function MenuPage() {
                   ></Center>
                 </WrapItem>
               </Wrap>
-              <WrapItem>
-                <Center
-                  bg={`url("./Torneos.png")`}
-                  backgroundSize="cover"
-                  borderRadius={3}
-                  w={532}
-                  h={430}
-                  _hover={{
-                    border: "2px solid #05f3ff",
-                    cursor: "pointer",
-                    opacity: 0.95,
-                  }}
-                  sx={{
-                    "@media screen and (max-width: 855px)": {
-                      width: "610px!important",
-                      height: "300px",
-                    },
-                  }}
-                ></Center>
-              </WrapItem>
+              <NextLink href="/torneos">
+                <WrapItem>
+                  <Center
+                    bg={`url("./Torneos.png")`}
+                    backgroundSize="cover"
+                    borderRadius={3}
+                    w={532}
+                    h={430}
+                    _hover={{
+                      border: "2px solid #05f3ff",
+                      cursor: "pointer",
+                      opacity: 0.95,
+                    }}
+                    sx={{
+                      "@media screen and (max-width: 855px)": {
+                        width: "610px!important",
+                        height: "300px",
+                      },
+                    }}
+                  ></Center>
+                </WrapItem>
+              </NextLink>
+             
 
               <Wrap spacing="10px" justify="center">
                 <WrapItem>
