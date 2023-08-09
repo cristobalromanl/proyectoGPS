@@ -19,65 +19,58 @@ const overviewList = [
     id: 1,
     label: "Equipo Lince",
     logo: "/logosequipos/team1.png",
-    createdAt:"10-08-2023",
+    registeredAt:"10-08-2023",
   },
   {
     id: 2,
     label: "Equipo Dragon",
     logo: "/logosequipos/team2.png",
-    createdAt:"12-07-2023",
+    registeredAt:"12-07-2023",
   },
   {
     id: 3,
     label: "Equipo Bicho",
     logo: "/logosequipos/team3.png",
-    createdAt:"10-09-2023",
+    registeredAt:"10-09-2023",
   },
   {
     id: 4,
     label: "Equipo L",
     logo: "/logosequipos/team4.png",
-    createdAt:"22-09-2023",
+    registeredAt:"22-09-2023",
   },
   {
     id: 5,
     label: "Equipo Partisano",
     logo: "/logosequipos/team5.png",
-    createdAt:"15-08-2023",
+    registeredAt:"15-08-2023",
   },
   {
     id: 6,
     label: "Equipo Yuste",
     logo: "/logosequipos/team6.png",
-    createdAt:"01-09-2023",
+    registeredAt:"01-09-2023",
   },
   {
     id: 7,
     label: "Equipo MMJ",
     logo: "/logosequipos/team7.png",
-    createdAt:"23-07-2023",
+    registeredAt:"23-07-2023",
   },
   {
     id: 8,
     label: "Equipo Kiku",
     logo: "/logosequipos/team8.png",
-    createdAt:"31-07-2023",
+    registeredAt:"31-07-2023",
   },
 ];
 
 export default function ReservasPage() {
   const [categories, setCategories] = useState([]);
-  const [values, setValues] = useState({
-    category: "",
-    date: "",
-  });
+  const [filter, setFilter] = useState("");;
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setValues((prevValues) => ({
-      ...prevValues,
-      [name]: value,
-    }));
+    setFilter(e.target.value); // Actualizar el estado del filtro
   };
 
   useEffect(() => {
@@ -94,9 +87,10 @@ export default function ReservasPage() {
 
   // Filtrar equipos basados en los valores seleccionados
   const filteredTeams = overviewList.filter((team) => {
+    const filterText = filter.toLowerCase(); // Convertir el filtro a minúsculas
     return (
-      (values.category === "" || values.category === team.label) &&
-      (values.date === "" || values.date === team.createdAt) // Asegúrate de tener la propiedad "date" en tus datos de equipo
+      team.label.toLowerCase().includes(filterText) ||
+      team.registeredAt.includes(filterText)
     );
   });
 
@@ -109,16 +103,8 @@ export default function ReservasPage() {
         <Box mb={4}>
           <Input
             type="text"
-            name="category"
-            placeholder="Filtrar por categoría"
-            value={values.category}
-            onChange={handleChange}
-          />
-          <Input
-            type="text"
-            name="date"
-            placeholder="Filtrar por fecha"
-            value={values.date}
+            placeholder="Filtrar tabla por nombre del club o fecha"
+            value={filter}
             onChange={handleChange}
           />
         </Box>
@@ -127,7 +113,7 @@ export default function ReservasPage() {
             <Tr>
               <Th>Equipo</Th>
               <Th>Logo</Th>
-              <Th>Fecha creación</Th>
+              <Th>Fecha de Creación</Th>
             </Tr>
           </Thead>
           <Tbody>
@@ -137,9 +123,7 @@ export default function ReservasPage() {
                 <Td>
                   <Image src={team.logo} alt={`${team.label} Logo`} height="50px" width="50px" />
                 </Td>
-                <Td>
-                {team.createdAt}
-                </Td>
+                <Td>{team.registeredAt}</Td>
               </Tr>
             ))}
           </Tbody>
