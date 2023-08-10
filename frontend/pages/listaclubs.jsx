@@ -26,66 +26,9 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import HomeLayout from "@/components/HomeLayout";
-import { getAll } from "@/services/categories";
 
-const overviewList = [
-  {
-    id: 1,
-    label: "Equipo Lince",
-    logo: "/logosequipos/team1.png",
-    registeredAt:"10-08-2023",
-    sportType: "Fútbol"
-  },
-  {
-    id: 2,
-    label: "Equipo Dragon",
-    logo: "/logosequipos/team2.png",
-    registeredAt:"12-07-2023",
-    sportType: "Fútbol"
-  },
-  {
-    id: 3,
-    label: "Equipo Bicho",
-    logo: "/logosequipos/team3.png",
-    registeredAt:"10-09-2023",
-    sportType: "Padel"
-  },
-  {
-    id: 4,
-    label: "Equipo L",
-    logo: "/logosequipos/team4.png",
-    registeredAt:"22-09-2023",
-    sportType: "Tenis"
-  },
-  {
-    id: 5,
-    label: "Equipo Partisano",
-    logo: "/logosequipos/team5.png",
-    registeredAt:"15-08-2023",
-    sportType: "Padel"
-  },
-  {
-    id: 6,
-    label: "Equipo Yuste",
-    logo: "/logosequipos/team6.png",
-    registeredAt:"01-09-2023",
-    sportType: "Tenis"
-  },
-  {
-    id: 7,
-    label: "Equipo MMJ",
-    logo: "/logosequipos/team7.png",
-    registeredAt:"23-07-2023",
-    sportType: "Fútbol"
-  },
-  {
-    id: 8,
-    label: "Equipo Kiku",
-    logo: "/logosequipos/team8.png",
-    registeredAt:"31-07-2023",
-    sportType: "Padel"
-  },
-];
+import { useRouter } from "next/router";
+import { getAll } from "@/services/clubs";
 
 export default function ReservasPage() {
   const [categories, setCategories] = useState([]);
@@ -98,7 +41,12 @@ export default function ReservasPage() {
   const toast = useToast();
 
   const handleChange = (e) => {
-    setFilter(e.target.value); // Actualizar el estado del filtro
+    setFilter(e.target.value);
+  };
+
+  const formatDate = (date) => {
+    const options = { year: "numeric", month: "long", day: "numeric" };
+    return new Date(date).toLocaleDateString(undefined, options);
   };
 
   const handleCategoryChange = (e) => {
@@ -137,7 +85,7 @@ export default function ReservasPage() {
 
   useEffect(() => {
     getAll()
-      .then((categorias) => setCategories(categorias))
+      .then((fetchedClubs) => setClubs(fetchedClubs))
       .catch((_error) =>
         toast({
           title: "Error al obtener los datos. Intentelo más tarde.",
@@ -145,17 +93,90 @@ export default function ReservasPage() {
           isClosable: true,
         })
       );
+    router.push("/listaclubs");
   }, []);
 
-  // Filtrar equipos basados en los valores seleccionados
-  const filteredTeams = overviewList.filter((team) => {
-    const filterText = filter.toLowerCase(); // Convertir el filtro a minúsculas
+  const handleLibre = (club) => {
+    setCanchaSeleccionada(club);
+    setAbrirModal(true);
+  };
+
+  const filteredClubs = clubs.filter((club) => {
+    const filterText = filter.toLowerCase();
     return (
-      team.label.toLowerCase().includes(filterText) ||
-      team.registeredAt.includes(filterText) || team.sportType.toLowerCase().includes(filterText)
+      club.name.toLowerCase().includes(filterText) ||
+      formatDate(club.createdAt).includes(filterText)
     );
   });
+  const handleConfirmReserva = async () => {
+    try {
+      await createReservation({
+        startDate: new Date(`${fecha} ${horaSeleccionada}`),
+        userId: user.id,
+        fieldId: canchaSeleccionada.id,
+        isConfirmed: true,
+      });
 
+      toast({
+        title: "¡Felicidades! Su reserva se ha registrado correctamente.",
+        status: "success",
+        isClosable: true,
+      });
+
+      router.push("/reservas");
+    } catch (error) {
+      toast({
+        title: "Error al realizar la reserva. Intentelo más tarde.",
+        status: "error",
+        isClosable: true,
+      });
+    }
+  };
+  const getColumnForClub = (name) => ({
+    center: true,
+    cell: (row) => {
+      const { clubs } = row;
+      const club = clubs.find((club) => {
+        const fechaCreacion = new Date(reserva.startDate);
+        const nombreSeleccionado = new Date(fecha);
+
+        return (
+          fechaCreacion.getFullYear() === nombreSeleccionado.getFullYear() &&
+          fechaCreacion.getMonth() === nombreSeleccionado.getMonth() &&
+          fechaCreacion.getDate() === nombreSeleccionado.getDate() + 1 &&
+          fechaCreacion.getHours() === parseInt(hora.split(":")[0])
+        );
+      });
+
+      if (club && club.isConfirmed) {
+        return (
+          <Button
+            onClick={() => setAbrirModalOcupado(true)}
+            size="xs"
+            width="100px"
+            bg="red.500"
+            color="red"
+            className="btn btn-outline btn-xs"
+          >
+            <Icon as={BsX} color="white" />
+          </Button>
+        );
+      }
+
+      return (
+        <Button
+          onClick={() => handleLibre(row, hora)}
+          size="xs"
+          width="100px"
+          bg="green.500"
+          color="green"
+          className="btn btn-outline btn-xs"
+        >
+          <Icon as={BsCheck} color="white" />
+        </Button>
+      );
+    },
+  });
   return (
     <HomeLayout>
       <Box p={8}>
@@ -170,26 +191,14 @@ export default function ReservasPage() {
             onChange={handleChange}
           />
         </Box>
-        <Table variant="striped">
-          <Thead>
-            <Tr>
-              <Th>Equipo</Th>
-              <Th>Logo</Th>
-              <Th>Fecha de Creación</Th>
-              <Th>Tipo de Deporte</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {filteredTeams.map((team) => (      //Mostrar los datos en la tabla
-              <Tr key={team.id}>
-                <Td>{team.label}</Td>
-                <Td>
-                  <Image src={team.logo} alt={`${team.label} Logo`} height="50px" width="50px" />
-                </Td>
-                <Td>{team.registeredAt}</Td>
-                <Td>{team.sportType}</Td>
+        <Box mb={4}>
+          <Table variant="striped">
+            <Thead>
+              <Tr>
+                <Th>Equipo</Th>
+                <Th>Logo</Th>
+                <Th>Fecha de Creación</Th>
               </Tr>
-            ))}
           </Tbody>
         </Table>
 

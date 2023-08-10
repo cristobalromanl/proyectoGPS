@@ -107,18 +107,20 @@ export default function MenuPage() {
                     ></Center>
                   </WrapItem>
                   <WrapItem>
-                    <Center
-                      bg={`url("./Match.png")`}
-                      backgroundSize="cover"
-                      borderRadius={3}
-                      w={615}
-                      h={210}
-                      _hover={{
-                        border: "2px solid #05f3ff",
-                        cursor: "pointer",
-                        opacity: 0.95,
-                      }}
-                    ></Center>
+                    <Link href="/listamatch">
+                      <Center
+                        bg={`url("./Match.png")`}
+                        backgroundSize="cover"
+                        borderRadius={3}
+                        w={615}
+                        h={210}
+                        _hover={{
+                          border: "2px solid #05f3ff",
+                          cursor: "pointer",
+                          opacity: 0.95,
+                        }}
+                      ></Center>
+                    </Link>
                   </WrapItem>
                 </Wrap>
                 <WrapItem>

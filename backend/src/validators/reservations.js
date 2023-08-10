@@ -12,9 +12,15 @@ export const validateCreate = [
   body('isConfirmed', 'El estado de confirmación debe ser \'true\' o \'false\'')
     .optional()
     .isBoolean(),
+  body('match', 'El estado de match debe ser \'true\' o \'false\'')
+    .optional()
+    .isBoolean(),
   body('userId', 'El userId debe ser un número mayor o igual a 1')
     .isInt({ min: 1 }),
   body('fieldId', 'El fieldId debe ser un número mayor o igual a 1')
+    .isInt({ min: 1 }),
+  body('clubMatchId', 'El clubMatchId debe ser un número mayor o igual a 1')
+    .optional()
     .isInt({ min: 1 }),
   body('equipments', 'Los equipamientos tienen el formato incorrecto')
     .optional()
@@ -36,10 +42,16 @@ export const validateUpdate = [
   body('isConfirmed', 'El estado de confirmación debe ser \'true\' o \'false\'')
     .optional()
     .isBoolean(),
+  body('match', 'El estado de match debe ser \'true\' o \'false\'')
+    .optional()
+    .isBoolean(),
   body('userId', 'El userId debe ser un número mayor o igual a 1')
     .optional()
     .isInt({ min: 1 }),
   body('fieldId', 'El fieldId debe ser un número mayor o igual a 1')
+    .optional()
+    .isInt({ min: 1 }),
+  body('clubMatchId', 'El clubMatchId debe ser un número mayor o igual a 1')
     .optional()
     .isInt({ min: 1 }),
   body('equipments', 'Los equipamientos tienen el formato incorrecto')
