@@ -17,7 +17,6 @@ import HomeLayout from "@/components/HomeLayout";
 import { getEquipament } from "@/services/equipament";
 
 export default function ReservasPage() {
-  const toast = useToast();
   const router = useRouter();
   const toast = useToast();
   const [categories, setCategories] = useState([]);
