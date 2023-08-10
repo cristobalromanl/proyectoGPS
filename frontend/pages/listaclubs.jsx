@@ -10,6 +10,20 @@ import {
   Th,
   Td,
   Input,
+  Button,
+  Modal,
+  Select,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  FormControl,
+  FormLabel,
+  Input as ChakraInput,
+  useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
 import HomeLayout from "@/components/HomeLayout";
 import { getAll } from "@/services/categories";
@@ -75,11 +89,51 @@ const overviewList = [
 
 export default function ReservasPage() {
   const [categories, setCategories] = useState([]);
-  const [filter, setFilter] = useState("");;
+  const [filter, setFilter] = useState("");
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [newTeamName, setNewTeamName] = useState(""); // Nuevo estado para el nombre del nuevo equipo
+  const [overviewList, setOverviewList] = useState([]);
+  const [selectedFile, setSelectedFile] = useState(null);
+  const toast = useToast();
 
   const handleChange = (e) => {
     setFilter(e.target.value); // Actualizar el estado del filtro
   };
+
+  const handleCategoryChange = (e) => {
+    setSelectedCategory(e.target.value);
+  };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setSelectedFile(file);
+  };
+
+    const handleCreateTeam = () => {
+      if (newTeamName && selectedCategory) {
+        const newTeam = {
+          id: Date.now(),
+          label: newTeamName,
+          logo: selectedFile ? URL.createObjectURL(selectedFile) : "/logosequipos/default.png",
+          registeredAt: new Date().toLocaleDateString(),
+          sportType: selectedCategory,
+        };
+
+        setOverviewList([...overviewList, newTeam]); // Actualizamos el estado de la lista de equipos
+        setNewTeamName("");
+        setSelectedCategory("");
+        setSelectedFile(null);
+
+        toast({
+          title: "Equipo creado con éxito.",
+          status: "success",
+          isClosable: true,
+        });
+
+        onClose();
+      }
+    };
 
   useEffect(() => {
     getAll()
@@ -138,7 +192,56 @@ export default function ReservasPage() {
             ))}
           </Tbody>
         </Table>
+
+        <Box display="flex" justifyContent="center" mt={8}>
+          <Button onClick={onOpen} colorScheme="teal">
+            Crear Nuevo Club
+          </Button>
+        </Box>
       </Box>
+
+
+
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Crear Nuevo Club</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <FormControl>
+              <FormLabel>Nombre del Club</FormLabel>
+              <ChakraInput
+                placeholder="Ingrese el nombre del club"
+                value={newTeamName}
+                onChange={(e) => setNewTeamName(e.target.value)}
+              />
+            </FormControl>
+            <FormControl mt={4}>
+              <FormLabel>Tipo de Categoría</FormLabel>
+              <Select
+                placeholder="Seleccione el tipo de categoría"
+                value={selectedCategory}
+                onChange={handleCategoryChange}
+              >
+                <option value="futbol">Fútbol</option>
+                <option value="padel">Padel</option>
+                <option value="tenis">Tenis</option>
+              </Select>
+            </FormControl>
+            <FormControl mt={4}>
+              <FormLabel>Logo del Equipo</FormLabel>
+              <Input type="file" accept="image/*" onChange={handleFileChange} />
+            </FormControl>
+          </ModalBody>
+          <ModalFooter>
+            <Button colorScheme="blue" mr={3} onClick={handleCreateTeam}>
+              Crear
+            </Button>
+            <Button onClick={onClose}>Cancelar</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+
     </HomeLayout>
   );
 }
